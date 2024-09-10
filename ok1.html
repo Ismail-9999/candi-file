@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'expérience professionnelle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .tabular-main-div {
+            position: relative;
+            padding-left: 60px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .tabular-main-div:before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: #ccc;
+        }
+        .experience-entry {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .crc-tabular-count {
+            position: absolute;
+            left: -60px;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border: 2px solid #007bff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            z-index: 1;
+        }
+        .experience-content {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .date-range {
+            display: flex;
+            gap: 10px;
+        }
+        .date-range select {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="tabular-main-div">
+        <div class="experience-entry">
+            <div class="crc-tabular-count">1</div>
+            <div class="experience-content">
+                <div class="form-group">
+                    <label for="profession1">Profession/Titre *</label>
+                    <input type="text" id="profession1" required>
+                </div>
+                <div class="form-group">
+                    <label for="societe1">Société *</label>
+                    <input type="text" id="societe1" required>
+                </div>
+                <div class="form-group">
+                    <label for="description1">Description *</label>
+                    <textarea id="description1" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Période *</label>
+                    <div class="date-range">
+                        <select>
+                            <option>Mois</option>
+                            <!-- Options pour les mois -->
+                        </select>
+                        <select>
+                            <option>An</option>
+                            <!-- Options pour les années -->
+                        </select>
+                        <span>À</span>
+                        <select>
+                            <option>Mois</option>
+                            <!-- Options pour les mois -->
+                        </select>
+                        <select>
+                            <option>An</option>
+                            <!-- Options pour les années -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="experience-entry">
+            <div class="crc-tabular-count">2</div>
+            <div class="experience-content">
+                <!-- Contenu similaire pour la deuxième entrée -->
+                <div class="form-group">
+                    <label for="profession2">Profession/Titre *</label>
+                    <input type="text" id="profession2" required>
+                </div>
+                <!-- Ajoutez les autres champs similaires à la première entrée -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

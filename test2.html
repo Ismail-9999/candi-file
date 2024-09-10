@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de candidature</title>
+    <style>
+        .form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group select {
+    flex: 1;
+}
+
+.input-group input {
+    flex: 2;
+    display: none;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.experience-group {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.add-experience {
+    display: inline-block;
+    color: #007bff;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+    </style>
+    
+</head>
+<body>
+
+<form id="applicationForm" class="form-container">
+    <!-- Informations de base -->
+    <h4>Informations de base - <a href="#" onclick="resetBaseInfo(event)">Effacer</a></h4>
+    
+    <div class="form-group">
+        <label for="nom">Nom *</label>
+        <input type="text" id="nom" name="nom" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="prenom">Prénom *</label>
+        <div class="input-group">
+            <select id="prenom" name="prenom" class="form-control" onchange="togglePrenomTexte()" required>
+                <option value="-Aucun-">-Aucun-</option>
+                <option value="M.">M.</option>
+                <option value="Mme">Mme</option>
+                <option value="Mlle">Mlle</option>
+            </select>
+            <input type="text" id="prenomTexte" name="prenomTexte" class="form-control" placeholder="Prénom" style="display:none;" />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Adresse e-mail *</label>
+        <input type="email" id="email" name="email" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="portable">Portable *</label>
+        <input type="text" id="portable" name="portable" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="nationalite">Nationalité *</label>
+        <input type="text" id="nationalite" name="nationalite" class="form-control" required />
+    </div>
+    
+    <h4>Informations professionnelles - <a href="#" onclick="resetProfessionalInfo(event)">Effacer</a></h4>
+    
+    <div class="form-group">
+        <label for="experience">Années d'expérience *</label>
+        <input type="number" id="experience" name="experience" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="disponibilite">Date de disponibilité *</label>
+        <input type="date" id="disponibilite" name="disponibilite" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="competences">Compétences *</label>
+        <input type="text" id="competences" name="competences" class="form-control" placeholder="Rechercher et ajouter des compétences" required />
+    </div>
+
+    <div class="form-group">
+        <label for="disponibilite_immediate">Disponibilité Immédiate *</label>
+        <select id="disponibilite_immediate" name="disponibilite_immediate" class="form-control" required>
+            <option value="-Aucun-">-Aucun-</option>
+            <option value="Oui">Oui</option>
+            <option value="Non">Non</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="employeur_actuel">Employeur actuel *</label>
+        <input type="text" id="employeur_actuel" name="employeur_actuel" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="fonction_actuelle">Fonction actuelle *</label>
+        <select id="fonction_actuelle" name="fonction_actuelle" class="form-control" required>
+            <option value="-Aucun-">Aucun</option>
+            <option value="Débutant">Débutant</option>
+            <option value="Chef de projet">Chef de projet</option>
+            <option value="Gestionnaire de projet">Gestionnaire de projet</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="mobilite">Mobilité *</label>
+        <select id="mobilite" name="mobilite" class="form-control" required>
+            <option value="Maroc">Maroc</option>
+            <option value="France">France</option>
+            <option value="Afrique">Afrique</option>
+            <option value="Europe">Europe</option>
+            <option value="Moyen Orient">Moyen Orient</option>
+        </select>
+    </div>
+
+    <!-- Expériences professionnelles -->
+     <h4>Expériences Professionnelles - <a href="#" onclick="resetExperienceInfo(event)">Effacer</a></h4>
+    <div class="form-group">
+        <!-- <label>Expériences professionnelles</label> -->
+        <div class="form-group">
+            <span class="add-experience" onclick="addExperience()"><strong>+ Ajouter</strong></span>
+        </div>
+        
+        <div id="experiences-container">
+            <!-- Les expériences seront ajoutées ici dynamiquement -->
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Soumettre</button>
+</form>
+
+<script>
+    function togglePrenomTexte() {
+    const prenom = document.getElementById('prenom').value;
+    const prenomTexte = document.getElementById('prenomTexte');
+    if (prenom === "-Aucun-") {
+        prenomTexte.style.display = "none";
+    } else {
+        prenomTexte.style.display = "block";
+    }
+}
+
+function resetBaseInfo(event) {
+    event.preventDefault();
+    document.querySelectorAll('#applicationForm .form-group input, #applicationForm .form-group select').forEach(input => {
+        input.value = '';
+        if (input.type === 'text' || input.type === 'email') {
+            input.classList.remove('small', 'large');
+        }
+    });
+    document.getElementById('prenomTexte').style.display = 'none';
+}
+
+function resetProfessionalInfo(event) {
+    event.preventDefault(); //Empêche le comportement par défaut du lien;
+
+    //Sélectionne le conteneur des expériences
+    const container = document.getElementById('experiences-container');
+
+    //Réinitialise le contenu du conteneur pour effacer les expériences ajoutées dynamiquement
+    container.innerHTML = '';
+}
+
+function resetExperienceInfo(event) {
+    event.preventDefault();
+    const container = document.getElementById('experiences-container');
+    container.innerHTML = '';
+}
+
+let experienceCount = 0;
+
+function addExperience() {
+    experienceCount++;
+    const container = document.getElementById('experiences-container');
+
+    const experienceDiv = document.createElement('div');
+    experienceDiv.className = 'experience-group';
+    experienceDiv.id = `experience-${experienceCount}`;
+
+    experienceDiv.innerHTML = `
+        <h5>Expérience ${experienceCount}</h5>
+        <div class="form-group">
+            <label for="profession-${experienceCount}">Profession/Titre *</label>
+            <input type="text" id="profession-${experienceCount}" name="profession-${experienceCount}" required />
+        </div>
+        <div class="form-group">
+            <label for="societe-${experienceCount}">Société *</label>
+            <input type="text" id="societe-${experienceCount}" name="societe-${experienceCount}" required />
+        </div>
+        <div class="form-group">
+            <label for="description-${experienceCount}">Description *</label>
+            <input type="text" id="description-${experienceCount}" name="description-${experienceCount}" required />
+        </div>
+        <div class="form-group">
+            <label for="periode-${experienceCount}">Période *</label>
+            <input type="text" id="periode-${experienceCount}" name="periode-${experienceCount}" required />
+        </div>
+        <button type="button" onclick="removeExperience(${experienceCount})" class="btn btn-danger">Supprimer</button>
+    `;
+
+    container.appendChild(experienceDiv);
+}
+
+function removeExperience(id) {
+    const experienceDiv = document.getElementById(`experience-${id}`);
+    if (experienceDiv) {
+        experienceDiv.remove();
+    }
+}
+
+</script>
+</body>
+</html>

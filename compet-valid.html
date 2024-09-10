@@ -1,0 +1,125 @@
+
+<script>
+const competencesInput = document.getElementById('competences');
+const autocompleteContainer = document.getElementById('autocomplete-container');
+const autocompleteList = document.getElementById('autocomplete-list');
+const selectedCompetencesContainer = document.getElementById('selected-competences');
+const errorSpan = document.getElementById('competences-error');
+
+const allCompetences = [
+// Java-related
+'Java', 'JavaScript', 'Java EE', 'JavaFX', 'Java Spring', 'Java Hibernate',
+// Web Development
+'HTML', 'CSS', 'React', 'Angular', 'Vue.js', 'Node.js', 'Express.js',
+'Django', 'Flask', 'Ruby on Rails', 'PHP', 'Laravel', 'ASP.NET',
+// Mobile Development
+'Android', 'iOS', 'Swift', 'Kotlin', 'React Native', 'Flutter',
+// Database
+'SQL', 'MySQL', 'PostgreSQL', 'MongoDB', 'Oracle', 'Redis',
+// Cloud & DevOps
+'AWS', 'Azure', 'Google Cloud', 'Docker', 'Kubernetes', 'Jenkins',
+// AI & Machine Learning
+'Python', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'Natural Language Processing',
+// Data Science
+'R', 'Data Analysis', 'Data Visualization', 'Tableau', 'Power BI',
+// Other Programming Languages
+'C', 'C++', 'C#', 'Go', 'Rust', 'Scala', 'Perl', 'Haskell',
+// Soft Skills
+'Project Management', 'Agile Methodology', 'Scrum', 'Team Leadership',
+// Design
+'UX Design', 'UI Design', 'Adobe Photoshop', 'Adobe Illustrator', 'Figma',
+// Version Control
+'Git', 'SVN', 'Mercurial',
+// Testing
+'JUnit', 'Selenium', 'TestNG', 'Cypress', 'Jest',
+// Big Data
+'Hadoop', 'Spark', 'Hive', 'Pig', 'Kafka'
+];
+
+let selectedItems = new Set();
+
+competencesInput.addEventListener('input', handleInput);
+competencesInput.addEventListener('focus', handleInput);
+
+document.addEventListener('click', function(e) {
+if (!competencesInput.contains(e.target) && !autocompleteContainer.contains(e.target)) {
+    autocompleteContainer.classList.add('hidden');
+}
+});
+
+// Permet d'ajouter la compétence en appuyant sur "Entrée"
+competencesInput.addEventListener('keydown', function(e) {
+if (e.key === 'Enter' && autocompleteList.firstChild) {
+    addCompetence(autocompleteList.firstChild.textContent);
+    competencesInput.value = '';  // Réinitialise l'input
+    autocompleteContainer.classList.add('hidden');  // Cache la liste d'autocomplete
+    e.preventDefault();
+}
+});
+
+function handleInput() {
+const inputValue = this.value.toLowerCase();
+const filteredCompetences = allCompetences.filter(comp => 
+    comp.toLowerCase().includes(inputValue) && !selectedItems.has(comp)
+);
+
+showAutocompleteItems(filteredCompetences);
+}
+
+function showAutocompleteItems(items) {
+autocompleteList.innerHTML = '';
+if (items.length > 0) {
+    items.forEach(item => {
+        const div = document.createElement('div');
+        div.textContent = item;
+        div.className = 'p-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700 rounded';
+        div.onclick = function() {
+            addCompetence(item);
+            competencesInput.value = '';  // Réinitialise l'input après sélection
+            autocompleteContainer.classList.add('hidden');  // Cache la liste d'autocomplete
+            competencesInput.focus();  // Remet le focus sur l'input
+        };
+        autocompleteList.appendChild(div);
+    });
+    autocompleteContainer.classList.remove('hidden');
+} else {
+    autocompleteContainer.classList.add('hidden');
+}
+}
+
+function addCompetence(competence) {
+if (!selectedItems.has(competence)) {
+    selectedItems.add(competence);
+
+    // Créer un tag pour la compétence
+    const tag = document.createElement('span');
+    tag.className = 'bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full flex items-center mr-2 mb-2';
+    tag.innerHTML = `${competence}<button class="ml-1 text-blue-600 hover:text-blue-800 font-bold focus:outline-none">×</button>`;
+    
+    tag.querySelector('button').onclick = function(e) {
+        e.preventDefault();
+        selectedItems.delete(competence);
+        selectedCompetencesContainer.removeChild(tag);
+        validateInput();
+    };
+    
+    selectedCompetencesContainer.appendChild(tag);
+    validateInput();
+}
+}
+
+function validateInput() {
+if (selectedItems.size === 0) {
+    errorSpan.classList.remove('hidden');  // Affiche le message d'erreur si aucune compétence
+    competencesInput.parentElement.classList.add('border-red-500');
+} else {
+    errorSpan.classList.add('hidden');  // Cache le message d'erreur si des compétences sont ajoutées
+    competencesInput.parentElement.classList.remove('border-red-500');
+}
+}
+
+competencesInput.addEventListener('blur', validateInput);
+
+// Validation initiale
+validateInput();
+</script>

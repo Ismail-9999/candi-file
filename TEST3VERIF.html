@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de candidature</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+    <!-- Inclure Tagify -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.2.0/tagify.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.2.0/tagify.min.css">
+
+
+    <!-- <link rel="stylesheet" href="test.css"> -->
+
+
+    <style>
+.form-container {
+    font-family: Lato, sans-serif;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-family: Lato, sans-serif;
+    display: block;
+    margin-bottom: 5px;
+    
+    color: #646d8c;
+}
+
+.form-group input, .form-group select {
+    font-family: Lato, sans-serif;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    color: #646d8c;
+}
+
+
+.form-control {
+    border: 1px solid #d1d5db; /* Bordure grise */
+    border-radius: 4px; /* Arrondir les coins */
+    padding: 0.5rem; /* Espacement interne */
+    width: 100%; /* Occuper toute la largeur disponible */
+    box-sizing: border-box; /* Inclure bordure et padding dans la largeur totale */
+}
+
+textarea {
+    border-radius: 4px;
+    border: 1px solid #d1d5db; /* Exemple de bordure transparente */
+    min-height: 100px; /* Hauteur minimale pour textarea */
+    resize: vertical; /* Permet de redimensionner verticalement */
+    font-family: Lato, sans-serif;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+ }
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group select {
+    flex: 1;
+}
+
+.input-group input {
+    flex: 2;
+    display: none;
+}
+
+.btn-primary {
+    background-color: #264D11;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-primary:hover {
+    background-color: #0a7a13;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #a8ada8;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.experience-group {
+    
+  
+}
+
+.experience-group.hidden {
+    opacity: 0;
+}
+
+.add-experience {
+    display: inline-block;
+    color: #19936a;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.add-educational {
+    display: inline-block;
+    color: #19936a;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.periode-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.periode-select {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.periode-separator {
+    margin: 0 10px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap:8px;
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 16px; /* Ajuster la taille si nécessaire */
+    height: 16px; /* Ajuster la taille si nécessaire */
+}
+
+.checkbox-row label {
+    font-size: 14px;
+}
+
+
+.text-red {
+    color: #dc3545;
+    cursor: pointer;
+    font-weight: bold;
+    position: relative; /* Changez de absolute à relative si nécessaire */
+    display: inline-block; /* Assurez-vous que le bouton est affiché */
+    transition: color 0.3s;
+}
+
+.text-red:hover {
+    color: #a94442;
+}
+
+.button-container {
+display: flex;
+justify-content: center; /* Centre les boutons horizontalement */
+gap: 10px; /* Espacement entre les boutons */
+margin-top: 20px; /* Marge au-dessus des boutons */
+ }
+
+ .tabular-main-div {
+    position: relative;
+    padding-left: 60px;
+    max-width: 600px;
+    margin: 0 auto;
+
+}
+
+.tabular-main-div:before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: #f2f4f9;
+}
+
+.experience-entry {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.crc-tabular-count {
+    position: absolute;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border: 5px solid #007BFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    z-index: 1;
+    
+}
+
+.experience-content {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+
+
+        /* Ajoute une transition de fondu pour les éléments */
+.tabular-data-div {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Classe pour rendre l'élément invisible avant de le supprimer */
+.fade-out {
+    animation: fadeOut 0.5s forwards; /* Changez la durée si nécessaire */
+}
+
+.fade-in {
+    opacity: 1;
+   
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+label {
+display: block;
+margin-bottom: 5px;
+font-weight: bold;
+color: #606060;
+}
+
+.required {
+    color: red;
+}
+
+.custom-file-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.custom-file-input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.custom-file-label {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f5f6fa;
+    border: 2px dashed #d3d3d3;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.custom-file-label:hover {
+    background-color: #e0e0e0;
+}
+
+.file-list {
+    margin-top: 10px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f5f6fa;
+    border: 1px solid #d3d3d3;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.remove-file-button {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.remove-file-button:hover {
+    background-color: #d32f2f;
+}
+
+.custom-file-label.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Styles du popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup-buttons {
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+    </style>
+</head>
+<body class="bg-white-100">
+
+<form id="applicationForm" class="max-w-2xl mx-auto bg-white p-6 rounded-lg">
+
+
+
+    <!-- Informations de base -->
+    <h3 class="text-lg font-semibold mb-4">Informations de base - <a href="#" class="text-green-500" onclick="resetBaseInfo(event)">Effacer</a></h3>
+    
+    <div class="form-group">
+        <label for="nom" class="block text-sm font-medium text-gray-700">Nom <span class="text-red-500">*</span></label>
+        <input type="text" id="nom" name="nom" class="form-control" required />
+        <span id="nom-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+    
+    <div class="form-group">
+        <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom <span class="text-red-500">*</span></label>
+        <div class="input-group">
+            <select id="prenom" name="prenom" class="form-control" required>
+                <option value="-Aucun-">-Aucun-</option>
+                <option value="M.">M.</option>
+                <option value="Mme">Mme</option>
+                <option value="Mlle">Mlle</option>
+            </select>
+            <input type="text" id="prenomTexte" name="prenomTexte" class="form-control" placeholder="Prénom" style="display:none;" />
+        </div>
+        <span id="prenom-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+    
+    <div class="form-group">
+        <label for="email" class="block text-sm font-medium text-gray-700">Adresse e-mail <span class="text-red-500">*</span></label>
+        <input type="email" id="email" name="email" class="form-control" required />
+        <span id="email-error" class="text-red-600 text-sm hidden">Format d'e-mail invalide.</span>
+    </div>
+    
+    <div class="form-group">
+        <label for="portable" class="block text-sm font-medium text-gray-700">Portable <span class="text-red-500">*</span> </label>
+        <input type="text" id="portable" name="portable" class="form-control" required />
+        <span id="portable-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+    
+    <div class="form-group">
+        <label for="nationalite" class="block text-sm font-medium text-gray-700">Nationalité <span class="text-red-500">*</span> </label>
+        <input type="text" id="nationalite" name="nationalite" class="form-control" required />
+        <span id="nationalite-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+
+    <!-- Séparateur -->
+    <hr class="my-6 border-gray-300">
+    
+    <h3 class="text-lg font-semibold mt-6 mb-4">Informations professionnelles - <a href="#" class="text-green-500" onclick="resetProfessionalInfo(event)">Effacer</a></h3>
+    
+    <div class="form-group">
+        <label for="experience" class="block text-sm font-medium text-gray-700">Années d'expérience  <span class="text-red-500">*</span></label>
+        <input type="number" id="experience" name="experience" class="form-control" required />
+        <span id="experience-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+    
+    <div class="form-group">
+        <label for="disponibilite" class="block text-sm font-medium text-gray-700">Date de disponibilité <span class="text-red-500">*</span></label>
+        <input type="date" id="disponibilite" name="disponibilite" class="form-control" required />
+        <span id="disponibilite-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+    
+    
+    <div class="form-group">
+        <label for="competences" class="block text-sm font-medium text-gray-700 mb-1">
+            Compétences <span class="text-red-500">*</span>
+        </label>
+        <input type="text" id="competences" name="competences" class="form-control" placeholder="Rechercher et ajouter des compétences" required />
+        <span id="competences-error" class="text-red-600 text-sm hidden mt-1">Veuillez ajouter au moins une compétence.</span>
+    </div>
+    
+ 
+
+    <div class="form-group">
+        <label for="disponibilite_immediate" class="block text-sm font-medium text-gray-700">Disponibilité Immédiate <span class="text-red-500">*</span></label>
+        <select id="disponibilite_immediate" name="disponibilite_immediate" class="form-control" required>
+            <option value="-Aucun-">-Aucun-</option>
+            <option value="Oui">Oui</option>
+            <option value="Non">Non</option>
+        </select>
+        <span id="disponibilite_immediate-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+    
+    <div class="form-group">
+        <label for="employeur_actuel" class="block text-sm font-medium text-gray-700">Employeur actuel <span class="text-red-500">*</span></label>
+        <input type="text" id="employeur_actuel" name="employeur_actuel" class="form-control" required />
+        <span id="employeur_actuel-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+    
+    <div class="form-group">
+        <label for="fonction_actuelle" class="block text-sm font-medium text-gray-700">Fonction actuelle <span class="text-red-500">*</span></label>
+        <select id="fonction_actuelle" name="fonction_actuelle" class="form-control" >
+            <option value="-Aucun-">Aucun</option>
+            <option value="Débutant">Débutant</option>
+            <option value="Chef de projet">Chef de projet</option>
+            <option value="Gestionnaire de projet">Gestionnaire de projet</option>
+        </select>
+        <span id="fonction_actuelle-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+
+    <div class="form-group">
+        <label for="mobilite" class="block text-sm font-medium text-gray-700">Mobilité <span class="text-red-500">*</span></label>
+        <input id="mobilite" name="mobilite" class="form-control" placeholder="" required>
+        <span id="mobilite-error" class="text-red-600 text-sm hidden mt-1">Mobilité ne doit pas être vide.</span>
+    </div>
+    
+
+    <!-- Séparateur -->
+    <hr class="my-6 border-gray-300">
+    
+    <!-- Informations sur l'adresse -->
+    <h3 class="text-lg font-semibold mb-4">Informations sur l'adresse - <a href="#" class="text-green-500" onclick="resetAdresseInfo(event)">Effacer</a></h3>
+
+    <div class="form-group">
+        <label for="ville" class="block text-sm font-medium text-gray-700">Ville <span class="text-red-500">*</span></label>
+        <input type="text" id="ville" name="ville" class="form-control" required />
+        <span id="ville-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+
+    <div class="form-group">
+        <label for="pays" class="block text-sm font-medium text-gray-700">Pays <span class="text-red-500">*</span></label>
+        <input type="text" id="pays" name="pays" class="form-control" required />
+        <span id="pays-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+
+
+     <!-- Séparateur -->
+     <hr class="my-6 border-gray-300">
+
+      <!-- Détails éducatifs -->
+     <h3 class="text-lg font-semibold mt-6 mb-4">Détails éducatifs - <a href="#" class="text-green-500" onclick="resetEducationalInfo(event)">Effacer</a></h3>
+    <div class="form-group">
+
+
+        <div class="tabular-main-div" id="educational-container">
+            <!-- Les détails éducatifs seront ajoutées ici dynamiquement -->
+        </div>
+        <span class="add-educational" onclick="addEducational()"><strong>+ Ajouter</strong></span>
+    </div>
+
+     <!-- Séparateur -->
+     <hr class="my-6 border-gray-300">
+
+    <!-- Expériences professionnelles -->
+    <h3 class="text-lg font-semibold mt-6 mb-4">Expériences Professionnelles - <a href="#" class="text-green-500" onclick="resetExperienceInfo(event)">Effacer</a></h3>
+    <div class="form-group">
+        
+        
+        <div class="tabular-main-div" id="experiences-container">
+            <!-- Les expériences seront ajoutées ici dynamiquement -->
+        </div>
+        <span class="add-experience" onclick="addExperience()"><strong>+ Ajouter</strong></span>
+    </div>
+
+    <!-- Séparateur -->
+    <hr class="my-6 border-gray-300">
+
+    <h3 class="text-lg font-semibold mt-6 mb-4">Social Links - <a href="#" id="resetButton" class="text-green-500" onclick="resetSocialInfo(event)">Effacer</a></h3>
+
+    <div class="form-group">
+        <label for="linkedin" class="block text-sm font-medium text-gray-700">LinkedIn </label>
+        <input type="text" id="linkedin" name="linkedin" class="form-control" required />
+        <span id="linkedin-error" class="text-red-600 text-sm hidden">Ce champ est requis.</span>
+    </div>
+
+    <!-- Séparateur -->
+    <hr class="my-6 border-gray-300">
+
+    <h3 class="text-lg font-semibold mt-6 mb-4">Information sur les Fichiers Joints</h3>
+
+    <div class="form-group">
+        <label for="cv">CV <span class="required">*</span></label>
+        <div class="custom-file-wrapper">
+            <input type="file" id="cv" class="custom-file-input" onchange="handleFileSelect(event, 'cv-file-list')" />
+            <label for="cv" class="custom-file-label">Parcourir</label>
+        </div>
+        <div id="cv-file-list" class="file-list"></div>
+    </div>
+    
+    <div class="form-group">
+        <label for="photo">Photo</label>
+        <div class="custom-file-wrapper">
+            <input type="file" id="photo" class="custom-file-input" onchange="handleFileSelect(event, 'photo-file-list')" />
+            <label for="photo" class="custom-file-label">Parcourir</label>
+        </div>
+        <div id="photo-file-list" class="file-list"></div>
+    </div>
+    
+
+
+    <div class="button-container">
+        <button type="button"  id="cancelButton" class="btn btn-secondary">Annuler</button>
+        <button type="submit" class="btn btn-primary">Soumettre la Candidature</button>
+
+        <!-- Popup de Confirmation -->
+    <div id="confirmationPopup" class="popup hidden">
+        <div class="popup-content">
+            <h2>Vous n'avez pas enregistré vos modifications</h2>
+            <p>Voulez-vous réellement quitter la page ?</p>
+            <div class="popup-buttons">         
+                <button id="leaveButton" class="btn btn-secondary">Quitter la page</button>
+                <button id="stayButton" class="btn btn-primary">Rester là</button>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+
+<script>
+    
+    
+
+document.addEventListener('DOMContentLoaded', function() {
+    const cancelButton = document.getElementById('cancelButton');
+    const popup = document.getElementById('confirmationPopup');
+    const stayButton = document.getElementById('stayButton');
+    const leaveButton = document.getElementById('leaveButton');
+
+    // Fonction pour afficher le popup
+    function showPopup() {
+        popup.classList.remove('hidden');
+    }
+
+    // Fonction pour cacher le popup
+    function hidePopup() {
+        popup.classList.add('hidden');
+    }
+
+    // Gestion du clic sur le bouton "Annuler"
+    cancelButton.addEventListener('click', function(event) {
+        showPopup();
+    });
+
+    // Gestion du clic sur le bouton "Rester là"
+    stayButton.addEventListener('click', function() {
+        hidePopup();
+    });
+
+    // Gestion du clic sur le bouton "Quitter la page"
+    leaveButton.addEventListener('click', function() {
+        hidePopup();
+        // Effectuer une action pour quitter la page, par exemple rediriger ou soumettre un formulaire
+        window.location.href = 'votre-url-de-redirection.html'; // Exemple de redirection
+    });
+});
+
+
+
+function handleFileSelect(event, fileListId) {
+    const input = event.target;
+    const fileList = document.getElementById(fileListId);
+
+    if (!fileList) {
+        console.error("L'élément avec l'ID " + fileListId + " n'existe pas.");
+        return;
+    }
+
+    fileList.innerHTML = ''; // Efface le contenu existant
+
+    // Validation : taille de fichier maximale de 2 MB
+    const maxFileSize = 2 * 1024 * 1024; // 2 Mo
+
+    if (input.files.length > 0) {
+        const file = input.files[0];
+
+        // Vérifier la taille du fichier
+        if (file.size > maxFileSize) {
+            alert("Le fichier ne doit pas dépasser 2 Mo.");
+            input.value = ''; // Efface l'input si le fichier est trop grand
+            return;
+        }
+
+        // Désactiver le bouton "Parcourir"
+        const label = input.nextElementSibling;
+        if (label) {
+            label.classList.add('disabled');
+        }
+
+        input.disabled = true;
+
+        // Afficher le fichier sélectionné avec un bouton pour le retirer
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+
+        const fileNameSpan = document.createElement('span');
+        fileNameSpan.textContent = file.name;
+        fileItem.appendChild(fileNameSpan);
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'X';
+        removeButton.className = 'remove-file-button';
+        removeButton.onclick = () => {
+            // Réinitialiser le champ de fichier et réactiver le bouton "Parcourir"
+            input.value = '';
+            fileList.innerHTML = '';
+            input.disabled = false;
+            if (label) {
+                label.classList.remove('disabled');
+            }
+        };
+        fileItem.appendChild(removeButton);
+
+        fileList.appendChild(fileItem);
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const mobiliteInput = document.getElementById('mobilite');
+    const errorSpan = document.getElementById('mobilite-error');
+
+    // Options disponibles pour la mobilité
+    const mobiliteOptions = ["Maroc", "France", "Afrique", "Europe", "Moyen Orient"];
+
+    // Initialisation de Tagify sur le champ de mobilité
+    const tagifyMobilite = new Tagify(mobiliteInput, {
+        whitelist: mobiliteOptions,
+        dropdown: {
+            maxItems: 5,           // maximum d'éléments à afficher dans la liste déroulante
+            classname: "suggestions",
+            enabled: 0,            // always show suggestions
+            closeOnSelect: false   // ne pas fermer la liste déroulante après la sélection
+        }
+    });
+
+    // Fonction de validation
+    function validateMobilite() {
+        const selectedValues = tagifyMobilite.value; // Obtenir les éléments sélectionnés
+
+        if (selectedValues.length === 0) {
+            errorSpan.classList.remove('hidden');  // Afficher l'erreur
+            mobiliteInput.classList.add('border-red-500');
+        } else {
+            errorSpan.classList.add('hidden');     // Cacher l'erreur
+            mobiliteInput.classList.remove('border-red-500');
+        }
+    }
+
+    // Validation lors de la modification des éléments sélectionnés
+    tagifyMobilite.on('add', validateMobilite);
+    tagifyMobilite.on('remove', validateMobilite);
+
+    // Validation initiale au chargement de la page
+    //validateMobilite();
+});
+
+// Function to validate phone number
+function validatePortable(phoneNumber) {
+    const cleanedNumber = phoneNumber.replace(/\D/g, '');
+    return cleanedNumber.length === 10 && ['06', '07'].includes(cleanedNumber.substring(0, 2));
+}
+
+// New function to validate email
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function validateNom(field) {
+    const nomTexte = document.getElementById('nom');
+    const errorSpan = document.getElementById('nom-error');
+
+    let isValid = true;
+    let errorMessage = "Veuillez saisir un nom valide (sans chiffres, tirets ou caractères spéciaux).";
+
+      if (nomTexte.value.trim() === "") {
+            isValid = false;
+            errorMessage = "Veuillez entrer votre nom.";
+        } else if (!/^[a-zA-Z]+$/.test(nomTexte.value)) {
+            isValid = false;
+        
+    }
+
+    if (!isValid) {
+        errorSpan.textContent = errorMessage;
+        errorSpan.classList.remove('hidden');
+    } else {
+        errorSpan.classList.add('hidden');
+    }
+
+    // Toggle visibility of text input
+
+    return isValid;
+}
+
+
+// New function to handle prenom validation
+function validatePrenom() {
+    const prenomSelect = document.getElementById('prenom');
+    const prenomTexte = document.getElementById('prenomTexte');
+    const errorSpan = document.getElementById('prenom-error');
+
+    let isValid = true;
+    let errorMessage = "Veuillez saisir un prénom valide (sans chiffres, tirets ou caractères spéciaux).";
+
+    if (prenomSelect.value === "-Aucun-") {
+        isValid = false;
+        errorMessage = "Ce champ est requis.";
+    } else if (["M.", "Mme", "Mlle"].includes(prenomSelect.value)) {
+        if (prenomTexte.value.trim() === "") {
+            isValid = false;
+            errorMessage = "Veuillez entrer votre prénom.";
+        } else if (!/^[a-zA-Z]+$/.test(prenomTexte.value)) {
+            isValid = false;
+        }
+    }
+
+    if (!isValid) {
+        errorSpan.textContent = errorMessage;
+        errorSpan.classList.remove('hidden');
+    } else {
+        errorSpan.classList.add('hidden');
+    }
+
+    // Toggle visibility of text input
+    prenomTexte.style.display = (prenomSelect.value !== "-Aucun-") ? "block" : "none";
+}
+
+
+
+// Updated general validation function
+function validateField(field, errorSpanId) {
+    
+    const errorSpan = document.getElementById(errorSpanId);
+    if (!errorSpan) {
+        console.error(`Error span with id ${errorSpanId} not found`);
+        return false;
+    }
+
+    let isValid = true;
+    let errorMessage = "Ce champ est requis.";
+
+    if (field.value.trim() === "") {
+        isValid = false;
+    } else {
+        switch (field.id) {
+            case 'nom':
+                isValid = validateNom(field.value);
+                errorMessage = "Le nom doit contenir uniquement des lettres .";
+                break;
+            case 'prenom':
+                isValid = validatePrenom(field.value);
+                errorMessage = "Le prénom doit contenir uniquement des lettres .";
+                break;
+            case 'portable':
+                isValid = validatePortable(field.value);
+                errorMessage = "Le numéro de téléphone doit contenir 10 chiffres.";
+                break;
+            case 'email':
+                isValid = validateEmail(field.value);
+                errorMessage = "Format d'e-mail invalide.";
+                break;
+            case 'disponibilite_immediate':
+                isValid = validateImmediateAvailability(field);
+                errorMessage = "Ce champ est requis.";
+                break;
+                
+            // Add more cases for other specific fields if needed
+        }
+    }
+
+    if (!isValid) {
+        errorSpan.textContent = errorMessage;
+        errorSpan.classList.remove('hidden');
+        field.classList.add('border-red-500');
+    } else {
+        errorSpan.classList.add('hidden');
+        field.classList.remove('border-red-500');
+    }
+
+    return isValid;
+}
+
+function validateImmediateAvailability(field) {
+    if (field.value === '-Aucun-') {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// Function to add validation listeners (unchanged)
+function addValidationListeners() {
+    const fields = document.querySelectorAll('input, select');
+    
+    fields.forEach(field => {
+        if (field.id === 'prenom') {
+            field.addEventListener('change', validatePrenom);
+        } else {
+        field.addEventListener('blur', function() {
+            const errorSpanId = `${field.id}-error`;
+            validateField(field, errorSpanId);
+        });
+        
+        field.addEventListener('input', function() {
+            const errorSpanId = `${field.id}-error`;
+            validateField(field, errorSpanId);
+        });
+    }
+    });
+    const prenomTexte = document.getElementById('prenomTexte');
+    if (prenomTexte) {
+        prenomTexte.addEventListener('blur', validatePrenom);
+        prenomTexte.addEventListener('input', validatePrenom);
+    }
+}
+
+// Initialize validation listeners when the page loads
+window.onload = function() {
+    addValidationListeners();
+    //validatePrenom();
+};
+
+
+
+
+    function resetErrors() {
+        const errorSpans = document.querySelectorAll('.text-red-600');
+        errorSpans.forEach(span => span.classList.add('hidden'));
+    }
+
+    function resetBaseInfo(event) {
+        event.preventDefault();
+        document.querySelectorAll('#applicationForm .form-group input, #applicationForm .form-group select').forEach(input => {
+            input.value = '';
+
+             // Réinitialiser les messages d'erreur
+        const errorSpan = document.getElementById(`${input.id}-error`);
+        if (errorSpan) {
+            errorSpan.classList.add('hidden');
+        }
+        });
+        document.getElementById('prenomTexte').style.display = 'none';
+    }
+
+    function resetProfessionalInfo(event) {
+        event.preventDefault();
+        document.getElementById('applicationForm').reset(); 
+        resetErrors();
+}
+
+function resetSocialInfo(event) {
+    event.preventDefault();
+    document.getElementById('applicationForm').reset(); 
+    resetErrors();
+}
+
+function resetAdresseInfo(event) {
+    event.preventDefault();
+    document.getElementById('applicationForm').reset(); 
+    resetErrors();
+
+}
+
+
+
+function resetExperienceInfo(event) {
+    event.preventDefault();
+    const container = document.getElementById('experiences-container');
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+    experienceCount = 0;  // Réinitialiser le compteur à zéro
+    document.querySelector('.add-experience strong').textContent = '+ Ajouter';
+
+     // Réinitialiser les messages d'erreur
+     document.querySelectorAll('#experienceForm .text-red-600').forEach(errorSpan => {
+        errorSpan.classList.add('hidden');
+    });
+
+    
+}
+
+    let experienceCount = 0;
+   
+
+    function addExperience() {
+    experienceCount++;
+   
+    const container = document.getElementById('experiences-container');
+
+    // Créer le div pour une nouvelle expérience
+    const experienceDiv = document.createElement('div');
+    experienceDiv.classList.add('tabular-data-div');
+    experienceDiv.id = `experience-${experienceCount}`;
+
+    // Le contenu HTML de l'expérience
+    experienceDiv.innerHTML = `
+        <div class="crc-tabular-count"> ${experienceCount}</div>
+        <div class="form-group">
+            <label for="profession-${experienceCount}" class="block text-sm font-medium text-gray-700">Profession/Titre <span class="text-red-500">*</span></label>
+            <input type="text" id="profession-${experienceCount}" name="profession-${experienceCount}" required />
+        </div>
+        <div class="form-group">
+            <label for="societe-${experienceCount}" class="block text-sm font-medium text-gray-700">Société  <span class="text-red-500">*</span></label>
+            <input type="text" id="societe-${experienceCount}" name="societe-${experienceCount}" required />
+        </div>
+        <div class="form-group">
+            <label for="description-${experienceCount}" class="block text-sm font-medium text-gray-700">Description <span class="text-red-500">*</span></label>
+            <textarea id="description-${experienceCount}" name="description-${experienceCount}" required rows="3" class="form-control"></textarea>
+            
+        </div>
+        <div class="form-group">
+            <label for="periode-${experienceCount}" class="block text-sm font-medium text-gray-700">Période <span class="text-red-500">*</span></label>
+            <div class="periode-row">
+                <select class="periode-select" id="mois-debut-${experienceCount}" name="mois-debut-${experienceCount}" required>
+                    <option value="">Mois</option>
+                    ${generateMonthOptions()}
+                </select>
+                <select class="periode-select" id="annee-debut-${experienceCount}" name="annee-debut-${experienceCount}" required>
+                    <option value="">An</option>
+                    ${generateYearOptions()}
+                </select>
+                <span class="periode-separator">À</span>
+                <select class="periode-select" id="mois-fin-${experienceCount}" name="mois-fin-${experienceCount}" required>
+                    <option value="">Mois</option>
+                    ${generateMonthOptions()}
+                </select>
+                <select class="periode-select" id="annee-fin-${experienceCount}" name="annee-fin-${experienceCount}" required>
+                    <option value="">An</option>
+                    ${generateYearOptions()}
+                </select>
+            </div>
+            <div class="checkbox-row">
+                <input type="checkbox" id="etudes-en-cours-${experienceCount}" name="etudes-en-cours-${experienceCount}">
+                <label for="etudes-en-cours-${experienceCount}">Je travaille ici actuellement</label>
+            </div>
+        </div>
+        <button type="button" onclick="removeExperience(${experienceCount})" class="text-red">Supprimer</button>
+    `;
+
+    // Ajouter la nouvelle expérience au conteneur
+    container.appendChild(experienceDiv);
+
+
+    setTimeout(() => {
+        experienceDiv.classList.add('fade-in');
+    }, 10);
+
+
+    const professionField = document.getElementById(`profession-${experienceCount}`);
+        const societeField = document.getElementById(`societe-${experienceCount}`);
+        const descriptionField = document.getElementById(`description-${experienceCount}`);
+        
+        createFieldValidator(professionField, `profession-${experienceCount}-error`, field => field.value.trim() !== '');
+        createFieldValidator(societeField, `societe-${experienceCount}-error`, field => field.value.trim() !== '');
+        createFieldValidator(descriptionField, `description-${experienceCount}-error`, field => field.value.trim() !== '');
+
+    // Configuration des événements pour les champs de période
+    setupEtudesEnCours(experienceCount);
+
+    updateAddButtonText();
+    
+    
+
+
+}
+
+
+
+function generateMonthOptions() {
+    const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+    return months.map((month, index) => `<option value="${index + 1}">${month}</option>`).join('');
+}
+
+function generateYearOptions() {
+    const currentYear = new Date().getFullYear();
+    let options = '';
+    for (let year = currentYear; year >= currentYear - 50; year--) {
+        options += `<option value="${year}">${year}</option>`;
+    }
+    return options;
+}
+
+function validatePeriod(experienceCount) {
+    const moisDebut = document.getElementById(`mois-debut-${experienceCount}`).value;
+    const anneeDebut = document.getElementById(`annee-debut-${experienceCount}`).value;
+    const moisFin = document.getElementById(`mois-fin-${experienceCount}`).value;
+    const anneeFin = document.getElementById(`annee-fin-${experienceCount}`).value;
+    const etudesEnCours = document.getElementById(`etudes-en-cours-${experienceCount}`).checked;
+
+    let errorMessage = '';
+
+    // Vérification quand la case "Je travaille ici actuellement" est cochée
+    if (etudesEnCours) {
+        if (!moisDebut || !anneeDebut) {
+            errorMessage = "Période ne peut pas être vide";
+        }
+    } else {
+        // Si la case n'est pas cochée, vérifier toute la période
+        if (!moisDebut || !anneeDebut || !moisFin || !anneeFin) {
+            errorMessage = "Entrez une période valide";
+        } else if (anneeDebut > anneeFin || (anneeDebut === anneeFin && moisDebut > moisFin)) {
+            errorMessage = "La date de fin doit être postérieure ou égale à la date de début";
+        }
+    }
+
+    // Afficher ou cacher le message d'erreur
+    const errorElement = document.getElementById(`periode-error-${experienceCount}`);
+    if (errorMessage) {
+        if (!errorElement) {
+            // Créer un élément d'erreur si besoin
+            const errorDiv = document.createElement('div');
+            errorDiv.id = `periode-error-${experienceCount}`;
+            errorDiv.classList.add('text-red-500', 'text-sm');
+            errorDiv.textContent = errorMessage;
+            document.getElementById(`experience-${experienceCount}`).appendChild(errorDiv);
+        } else {
+            errorElement.textContent = errorMessage;
+        }
+    } else if (errorElement) {
+        // Si pas d'erreur, enlever le message
+        errorElement.remove();
+    }
+}
+
+function setupEtudesEnCours(experienceCount) {
+    const checkbox = document.getElementById(`etudes-en-cours-${experienceCount}`);
+    const moisFin = document.getElementById(`mois-fin-${experienceCount}`);
+    const anneeFin = document.getElementById(`annee-fin-${experienceCount}`);
+
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+            // Désactiver Mois fin et Année fin
+            moisFin.disabled = true;
+            anneeFin.disabled = true;
+
+            // Effacer les valeurs des champs Mois fin et Année fin
+            moisFin.value = '';
+            anneeFin.value = '';
+        } else {
+            // Réactiver Mois fin et Année fin
+            moisFin.disabled = false;
+            anneeFin.disabled = false;
+        }
+
+        // Valider la période
+        validatePeriod(experienceCount);
+    });
+
+    // Ajouter des écouteurs pour la validation sur les dates
+    document.getElementById(`mois-debut-${experienceCount}`).addEventListener('change', () => validatePeriod(experienceCount));
+    document.getElementById(`annee-debut-${experienceCount}`).addEventListener('change', () => validatePeriod(experienceCount));
+    moisFin.addEventListener('change', () => validatePeriod(experienceCount));
+    anneeFin.addEventListener('change', () => validatePeriod(experienceCount));
+}
+
+
+function removeExperience(id) {
+    const experienceDiv = document.getElementById(`experience-${id}`);
+    if (experienceDiv) {
+
+        // Ajouter la classe de fondu avant de supprimer l'élément
+        experienceDiv.classList.add('fade-out');
+        
+        // Attendre que la transition soit terminée avant de supprimer l'élément
+        setTimeout(() => {
+        experienceDiv.remove();
+        experienceCount--;
+        renumberExperiences();
+        updateAddButtonText();
+    }, 500); // Doit correspondre à la durée de la transition CSS
+    }
+}
+
+function updateAddButtonText() {
+    const addBtn = document.querySelector('.add-experience strong');
+    if (experienceCount === 0) {
+        addBtn.textContent = '+ Ajouter';
+    } else {
+        addBtn.textContent = '+ Ajouter plus';
+    }
+}
+
+function renumberExperiences() {
+    const experiences = document.querySelectorAll('.tabular-data-div');
+    experiences.forEach((experience, index) => {
+        const countElem = experience.querySelector('.crc-tabular-count');
+        countElem.textContent = index + 1;
+        experience.id = `experience-${index + 1}`;
+
+        experience.querySelectorAll('input, select').forEach(input => {
+            const oldName = input.name;
+            const newName = oldName.replace(/\d+$/, index + 1);
+            input.name = newName;
+            input.id = newName;
+        });
+
+        // Mettre à jour l'attribut onclick du bouton "Supprimer"
+        const removeButton = experience.querySelector('.text-red');
+        if (removeButton) {
+            removeButton.setAttribute('onclick', `removeExperience(${index + 1})`);
+        }
+    });
+
+    // Mettre à jour le nombre d'expériences
+    experienceCount = experiences.length;
+}
+
+
+
+function updateExperienceTitles() {
+    const experienceGroups = document.querySelectorAll('.experience-group');
+    experienceGroups.forEach((group, index) => {
+        const title = group.querySelector('h5');
+        title.textContent = `Expérience ${index + 1}`;
+
+        const oldId = group.id;
+        const newId = `experience-${index + 1}`;
+        group.id = newId;
+
+        group.querySelectorAll('input, select').forEach(input => {
+            const oldName = input.name;
+            const newName = oldName.replace(/\d+$/, index + 1);
+            input.name = newName;
+            input.id = newName;
+        });
+    });
+
+    experienceCount = experienceGroups.length;
+}
+
+    document.querySelector('[onclick="resetBaseInfo(event)"]').addEventListener('click', resetBaseInfo);
+    document.querySelector('[onclick="resetProfessionalInfo(event)"]').addEventListener('click', resetProfessionalInfo);
+    document.querySelector('[onclick="resetExperienceInfo(event)"]').addEventListener('click', resetExperienceInfo);
+    document.querySelector('[onclick="resetEducationalInfo(event)"]').addEventListener('click', resetEducationalInfo);
+    document.querySelector('[onclick="resetSocialInfo(event)"]').addEventListener('click', resetSocialInfo);
+    document.querySelector('[onclick="resetAdresseInfo(event)"]').addEventListener('click', resetAdresseInfo);
+
+    function setupPeriodeSearch(id) {
+        const container = document.getElementById(`experience-${id}`);
+        const searchInputs = container.querySelectorAll('.periode-search');
+
+        searchInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                const targetId = this.dataset.target;
+                const select = document.getElementById(targetId);
+                const filter = this.value.toLowerCase();
+
+                Array.from(select.options).forEach(option => {
+                    const text = option.textContent.toLowerCase();
+                    if (text.includes(filter)) {
+                        option.style.display = '';
+                    } else {
+                        option.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
+    let educationalCount = 0;
+    
+    function resetEducationalInfo(event) {
+        event.preventDefault();
+        const container = document.getElementById('educational-container');
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+        educationalCount = 0;
+        document.querySelector('.add-educational strong').textContent = '+ Ajouter';
+    }
+
+    function addEducational() {
+        educationalCount++;
+
+        const container = document.getElementById('educational-container');
+
+        //Créer le div pour un nouveau détail éducatif
+        const educationalDiv = document.createElement('div');
+        educationalDiv.classList.add('tabular-data-div');
+        educationalDiv.id = `educational-${educationalCount}`;
+
+         // Le contenu HTML du détail éducatif
+    educationalDiv.innerHTML = `
+        <div class="crc-tabular-count"> ${educationalCount}</div>
+        <div class="form-group">
+            <label for="institut-${educationalCount}" class="block text-sm font-medium text-gray-700">Institut/École <span class="text-red-500">*</span></label>
+            <input type="text" id="institut-${educationalCount}" name="institut-${educationalCount}" required />
+            <span id="institut-${educationalCount}-error" class="error-message hidden">Ce champ est requis.</span>
+        </div>
+        <div class="form-group">
+            <label for="specialisation-${educationalCount}" class="block text-sm font-medium text-gray-700">Spécialisation/Service <span class="text-red-500">*</span></label>
+            <input type="text" id="specialisation-${educationalCount}" name="specialisation-${educationalCount}" required />
+            <span id="specialisation-${educationalCount}-error" class="error-message hidden">Ce champ est requis.</span>
+        </div>
+        <div class="form-group">
+            <label for="degree-${educationalCount}" class="block text-sm font-medium text-gray-700">Degré <span class="text-red-500">*</span></label>
+            <input type="text" id="degree-${educationalCount}" name="degree-${educationalCount}" required />
+            <span id="degree-${educationalCount}-error" class="error-message hidden">Ce champ est requis.</span>
+        </div>
+        <div class="form-group">
+            <label for="duree-${educationalCount}" class="block text-sm font-medium text-gray-700">Durée <span class="text-red-500">*</span></label>
+            <div class="periode-row">
+                <select class="periode-select" id="mois-debut-educ-${educationalCount}" name="mois-debut-educ-${educationalCount}">
+                    <option value="">Mois</option>
+                    ${generateMonthOptions()}
+                </select>
+                <select class="periode-select" id="annee-debut-educ-${educationalCount}" name="annee-debut-educ-${educationalCount}">
+                    <option value="">An</option>
+                    ${generateYearOptions()}
+                </select>
+                <span class="periode-separator">À</span>
+                <select class="periode-select" id="mois-fin-educ-${educationalCount}" name="mois-fin-educ-${educationalCount}">
+                    <option value="">Mois</option>
+                    ${generateMonthOptions()}
+                </select>
+                <select class="periode-select" id="annee-fin-educ-${educationalCount}" name="annee-fin-educ-${educationalCount}">
+                    <option value="">An</option>
+                    ${generateYearOptions()}
+                </select>
+            </div>
+        <div class="checkbox-row">
+            <input type="checkbox" id="etudes-en-cours-educ-${educationalCount}" name="etudes-en-cours-educ-${educationalCount}">
+            <label for="etudes-en-cours-educ-${educationalCount}">Études en cours</label>
+        </div>
+        <button type="button" onclick="removeEducational(${educationalCount})" class="text-red">Supprimer</button>
+    `;
+
+    //Ajouter le nouveau détail éducatif au conteneur
+    container.appendChild(educationalDiv);
+
+    setTimeout(() => {
+        educationalDiv.classList.add('fade-in');
+    }, 10);
+
+    setupEducationalDuration(educationalCount);
+
+    updateAddEducationalButtonText();
+    }
+    
+
+    function setupEducationalDuration(id) {
+    const checkbox = document.getElementById(`etudes-en-cours-educ-${id}`);
+    const moisFin = document.getElementById(`mois-fin-educ-${id}`);
+    const anneeFin = document.getElementById(`annee-fin-educ-${id}`);
+
+    checkbox.addEventListener('change', function() {
+        moisFin.disabled = this.checked;
+        anneeFin.disabled = this.checked;
+        if (this.checked) {
+            moisFin.value = '';
+            anneeFin.value = '';
+        }
+    });
+}
+
+function validateDuration(educationalCount) {
+    const moisDebut = document.getElementById(`mois-debut-educ-${educationalCount}`).value;
+    const anneeDebut = document.getElementById(`annee-debut-educ-${educationalCount}`).value;
+    const moisFin = document.getElementById(`mois-fin-educ-${educationalCount}`).value;
+    const anneeFin = document.getElementById(`annee-fin-educ-${educationalCount}`).value;
+    const educsEnCours = document.getElementById(`etudes-en-cours-educ-${educationalCount}`).checked;
+
+    let errorMessage = '';
+
+    // Si "Etudes en cours" est coché
+    if (educsEnCours) {
+        // Vérifier que les champs Mois début et Année début sont remplis
+        if (!moisDebut || !anneeDebut) {
+            errorMessage = "Durée ne peut pas être vide";
+        }
+    } else {
+        // Si la case n'est pas cochée, vérifier la période complète
+        if (!moisDebut || !anneeDebut || !moisFin || !anneeFin) {
+            errorMessage = "Entrez une durée valide";
+        } else if (anneeDebut > anneeFin || (anneeDebut === anneeFin && moisDebut > moisFin)) {
+            errorMessage = "La date de fin doit être postérieure ou égale à la date de début";
+        }
+    }
+
+    // Afficher ou cacher le message d'erreur
+    const errorElement = document.getElementById(`duree-error-${educationalCount}`);
+    if (errorMessage) {
+        if (!errorElement) {
+            const errorDiv = document.createElement('div');
+            errorDiv.id = `duree-error-${educationalCount}`;
+            errorDiv.classList.add('text-red-500', 'text-sm');
+            errorDiv.textContent = errorMessage;
+            document.getElementById(`educational-${educationalCount}`).appendChild(errorDiv);
+        } else {
+            errorElement.textContent = errorMessage;
+        }
+    } else if (errorElement) {
+        errorElement.remove();
+    }
+}
+
+function setupEducationalDuration(id) {
+    const checkbox = document.getElementById(`etudes-en-cours-educ-${educationalCount}`);
+    const moisFin = document.getElementById(`mois-fin-educ-${educationalCount}`);
+    const anneeFin = document.getElementById(`annee-fin-educ-${educationalCount}`);
+
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+            // Désactiver Mois fin et Année fin
+            moisFin.disabled = true;
+            anneeFin.disabled = true;
+
+            // Effacer les valeurs des champs Mois fin et Année fin
+            moisFin.value = '';
+            anneeFin.value = '';
+        } else {
+            // Réactiver Mois fin et Année fin
+            moisFin.disabled = false;
+            anneeFin.disabled = false;
+        }
+
+        // Valider la période
+        validateDuration(educationalCount);
+    });
+
+    // Ajouter des écouteurs pour la validation sur les dates
+    document.getElementById(`mois-debut-educ-${educationalCount}`).addEventListener('change', () => validateDuration(educationalCount));
+    document.getElementById(`annee-debut-educ-${educationalCount}`).addEventListener('change', () => validateDuration(educationalCount));
+    moisFin.addEventListener('change', () => validateDuration(educationalCount));
+    anneeFin.addEventListener('change', () => validateDuration(educationalCount));
+}
+
+
+    function removeEducational(id) {
+        const educationalDiv = document.getElementById(`educational-${id}`);
+        if (educationalDiv) {
+            educationalDiv.classList.add('fade-out');
+
+            setTimeout(() => {
+                educationalDiv.remove();
+                educationalCount--;
+                renumberEducational();
+                updateAddEducationalButtonText();
+            }, 500);
+        }
+    }
+
+    function updateAddEducationalButtonText() {
+        const addBtn = document.querySelector('.add-educational strong');
+        if (educationalCount === 0) {
+            addBtn.textContent = '+ Ajouter';
+        } else {
+            addBtn.textContent = '+ Ajouter plus';
+        }
+    }
+
+    function renumberEducational() {
+        const educationalItems = document.querySelectorAll('.tabular-data-div');
+        educationalItems.forEach((item, index) => {
+            const countElem = item.querySelector('.crc-tabular-count');
+            countElem.textContent = index + 1;
+            item.id = `educational-${index + 1}`;
+
+            item.querySelectorAll('input, select').forEach(input => {
+                const oldName = input.name;
+                const newName = oldName.replace(/\d+$/, index + 1);
+                input.name = newName;
+                input.id = newName;
+            });
+
+            const removeButton = item.querySelector('.text-red');
+            if (removeButton) {
+                removeButton.setAttribute('onclick', `removeEducational(${index + 1})`);
+            }
+        });
+
+        //Mettre à jour le nombre de détails éducatifs
+        educationalCount = educationalItems.length;
+    }
+
+    // async function loadCompetences() {
+    //         try {
+    //             const response = await fetch('competences.json');
+    //             if (!response.ok) throw new Error('Network response was not ok');
+    //             const data = await response.json();
+    //             // Extraire les valeurs de 'technologyKeys'
+    //             const competences = data.map(item => item.technologyKeys);
+    //             return competences;
+    //         } catch (error) {
+    //             console.error('Erreur lors du chargement des compétences:', error);
+    //             return [];
+    //         }
+    //     }
+
+    //     document.addEventListener('DOMContentLoaded', async () => {
+    //         const competences = await loadCompetences();
+    //         const input = document.querySelector('#competences');
+
+    //         const tagify = new Tagify(input, {
+    //             whitelist: competences, // Liste des compétences pour l'auto-complétion
+    //             enforceWhitelist: false, // Permet d'ajouter des tags non dans la liste
+    //             dropdown: {
+    //                 maxItems: 10, // Nombre maximal d'éléments dans le dropdown
+    //                 enabled: 1, // Activer le dropdown par défaut
+    //                 closeOnSelect: false
+    //             }
+    //         });
+
+    //         tagify.on('add', e => {
+    //             console.log('Tag ajouté:', e.detail.data.value);
+    //         });
+
+    //         tagify.on('remove', e => {
+    //             console.log('Tag supprimé:', e.detail.data.value);
+    //         });
+
+    //         tagify.on('input', e => {
+    //             console.log('Recherche:', e.detail.value);
+    //         });
+    //     });
+
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.querySelector('#competences');
+
+        // Liste des compétences
+        const allCompetences = [
+            'Java', 'JavaScript', 'HTML', 'CSS', 'React', 'Angular', 'Vue.js',
+            'SQL', 'MySQL', 'AWS', 'Python', 'C++', 'Git', 'Docker',
+            'Java EE', 'JavaFX', 'Spring', 'Hibernate',
+            'Node.js', 'Express.js', 'Django', 'Flask', 'Ruby on Rails', 'PHP', 'Laravel', 'ASP.NET',
+            'Android', 'iOS', 'Swift', 'Kotlin', 'React Native', 'Flutter',
+            'PostgreSQL', 'MongoDB', 'Oracle', 'Redis',
+            'Azure', 'Google Cloud', 'Kubernetes', 'Jenkins',
+            'TensorFlow', 'PyTorch', 'Scikit-learn', 'NLP',
+            'Data Analysis', 'Data Visualization', 'Tableau', 'Power BI',
+            'C#', 'Go', 'Rust', 'Scala', 'Perl', 'Haskell',
+            'Project Management', 'Agile', 'Scrum', 'Leadership',
+            'UX Design', 'UI Design', 'Photoshop', 'Illustrator', 'Figma',
+            'SVN', 'Mercurial',
+            'JUnit', 'Selenium', 'TestNG', 'Cypress', 'Jest',
+            'Hadoop', 'Spark', 'Hive', 'Pig', 'Kafka'
+        ];
+
+        // Initialiser Tagify sur le champ de saisie
+        const tagify = new Tagify(input, {
+            whitelist: allCompetences, // Liste des compétences pour l'autocomplétion
+            dropdown: {
+                maxItems: 20,           // Nombre maximal d'éléments dans le menu déroulant
+                classname: 'competences-list',
+                enabled: 0,             // Toujours afficher le menu déroulant
+                closeOnSelect: false    // Ne pas fermer le menu après sélection
+            }
+        });
+
+        // Fonction de validation
+        function validateCompetences() {
+            const errorSpan = document.getElementById('competences-error');
+            if (tagify.value.length === 0) {
+                errorSpan.classList.remove('hidden');  // Afficher l'erreur
+                input.classList.add('border-red-500');
+            } else {
+                errorSpan.classList.add('hidden');     // Cacher l'erreur
+                input.classList.remove('border-red-500');
+            }
+        }
+
+        // Événements pour la validation
+        tagify.on('add', validateCompetences);
+        tagify.on('remove', validateCompetences);
+
+        // Validation initiale
+        //validateCompetences();
+    });
+
+        
+
+    document.addEventListener('DOMContentLoaded', function () {
+    const fonctionActuelleSelect = document.getElementById('fonction_actuelle');
+    const errorSpan = document.getElementById('fonction_actuelle-error');
+    let fieldTouched = false;
+
+    function validateFonctionActuelle() {
+        if (fieldTouched && fonctionActuelleSelect.value === "-Aucun-") {
+            errorSpan.classList.remove('hidden');
+            fonctionActuelleSelect.classList.add('border-red-500');
+        } else {
+            errorSpan.classList.add('hidden');
+            fonctionActuelleSelect.classList.remove('border-red-500');
+        }
+    }
+
+    fonctionActuelleSelect.addEventListener('change', function() {
+        fieldTouched = true;
+        validateFonctionActuelle();
+    });
+
+    fonctionActuelleSelect.addEventListener('blur', function() {
+        fieldTouched = true;
+        validateFonctionActuelle();
+    });
+
+    // Validation when user clicks outside the select field
+    document.addEventListener('click', function(event) {
+        if (!fonctionActuelleSelect.contains(event.target)) {
+            fieldTouched = true;
+            validateFonctionActuelle();
+        }
+    });
+});
+
+
+
+
+
+
+</script>
+</body>
+</html>
+   

@@ -1,0 +1,75 @@
+<script>
+    // Function to validate a required text field
+function validateRequiredField(fieldId, errorSpanId) {
+    const field = document.getElementById(fieldId);
+    const errorSpan = document.getElementById(errorSpanId);
+    
+    if (field.value.trim() === '') {
+        errorSpan.textContent = 'Ce champ est requis.';
+        errorSpan.classList.remove('hidden');
+        field.classList.add('border-red-500');
+        return false;
+    } else {
+        errorSpan.classList.add('hidden');
+        field.classList.remove('border-red-500');
+        return true;
+    }
+}
+
+// Function to add validators to experience fields
+function addExperienceValidators(experienceCount) {
+    const fields = ['profession', 'societe', 'description'];
+    fields.forEach(field => {
+        const fieldId = `${field}-${experienceCount}`;
+        const errorSpanId = `${fieldId}-error`;
+        const inputField = document.getElementById(fieldId);
+        
+        inputField.addEventListener('blur', () => validateRequiredField(fieldId, errorSpanId));
+        inputField.addEventListener('input', () => validateRequiredField(fieldId, errorSpanId));
+    });
+}
+
+// Function to add validators to educational fields
+function addEducationalValidators(educationalCount) {
+    const fields = ['institut', 'specialisation', 'degree'];
+    fields.forEach(field => {
+        const fieldId = `${field}-${educationalCount}`;
+        const errorSpanId = `${fieldId}-error`;
+        const inputField = document.getElementById(fieldId);
+        
+        inputField.addEventListener('blur', () => validateRequiredField(fieldId, errorSpanId));
+        inputField.addEventListener('input', () => validateRequiredField(fieldId, errorSpanId));
+    });
+}
+
+// Update the addExperience function
+function addExperience() {
+    // ... existing code ...
+
+    addExperienceValidators(experienceCount);
+
+    // ... rest of the existing code ...
+}
+
+// Update the addEducational function
+function addEducational() {
+    // ... existing code ...
+
+    addEducationalValidators(educationalCount);
+
+    // ... rest of the existing code ...
+}
+
+// Add this to your existing DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existing code ...
+
+    // Add validators to any existing experience and educational fields
+    for (let i = 1; i <= experienceCount; i++) {
+        addExperienceValidators(i);
+    }
+    for (let i = 1; i <= educationalCount; i++) {
+        addEducationalValidators(i);
+    }
+});
+</script>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de candidature</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+<form id="applicationForm" class="max-w-lg mx-auto p-6 bg-white border border-gray-300 rounded-lg shadow-md mt-10">
+    <!-- Informations de base -->
+    <h4 class="text-lg font-semibold mb-4">Informations de base - <a href="#" onclick="resetBaseInfo(event)" class="text-blue-500 hover:underline">Effacer</a></h4>
+    
+    <div class="mb-4">
+        <label for="nom" class="block text-sm font-medium text-gray-700">Nom *</label>
+        <input type="text" id="nom" name="nom" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+    </div>
+    
+    <div class="mb-4">
+        <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom *</label>
+        <div class="flex items-center space-x-2">
+            <select id="prenom" name="prenom" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" onchange="togglePrenomTexte()" required>
+                <option value="-Aucun-">-Aucun-</option>
+                <option value="M.">M.</option>
+                <option value="Mme">Mme</option>
+                <option value="Mlle">Mlle</option>
+            </select>
+            <input type="text" id="prenomTexte" name="prenomTexte" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Prénom" style="display:none;" />
+        </div>
+    </div>
+    
+    <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Adresse e-mail *</label>
+        <input type="email" id="email" name="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+    </div>
+    
+    <div class="mb-4">
+        <label for="portable" class="block text-sm font-medium text-gray-700">Portable *</label>
+        <input type="text" id="portable" name="portable" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+    </div>
+    
+    <div class="mb-4">
+        <label for="nationalite" class="block text-sm font-medium text-gray-700">Nationalité *</label>
+        <input type="text" id="nationalite" name="nationalite" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+    </div>
+    
+    <h4 class="text-lg font-semibold mb-4">Informations professionnelles - <a href="#" onclick="resetProfessionalInfo(event)" class="text-blue-500 hover:underline">Effacer</a></h4>
+    
+    <div class="mb-4">
+        <label for="experience" class="block text-sm font-medium text-gray-700">Années d'expérience *</label>
+        <input type="number" id="experience" name="experience" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+    </div>
+    
+    <div class="mb-4">
+        <label for="disponibilite" class="block text-sm font-medium text-gray-700">Date de disponibilité *</label>
+        <input type="date" id="disponibilite" name="disponibilite" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+    </div>
+    
+    <div class="mb-4">
+        <label for="competences" class="block text-sm font-medium text-gray-700">Compétences *</label>
+        <input type="text" id="competences" name="competences" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Rechercher et ajouter des compétences" required />
+    </div>
+
+    <div class="mb-4">
+        <label for="disponibilite_immediate" class="block text-sm font-medium text-gray-700">Disponibilité Immédiate *</label>
+        <select id="disponibilite_immediate" name="disponibilite_immediate" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+            <option value="-Aucun-">-Aucun-</option>
+            <option value="Oui">Oui</option>
+            <option value="Non">Non</option>
+        </select>
+    </div>
+    
+    <div class="mb-4">
+        <label for="employeur_actuel" class="block text-sm font-medium text-gray-700">Employeur actuel *</label>
+        <input type="text" id="employeur_actuel" name="employeur_actuel" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
+    </div>
+    
+    <div class="mb-4">
+        <label for="fonction_actuelle" class="block text-sm font-medium text-gray-700">Fonction actuelle *</label>
+        <select id="fonction_actuelle" name="fonction_actuelle" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+            <option value="-Aucun-">Aucun</option>
+            <option value="Débutant">Débutant</option>
+            <option value="Chef de projet">Chef de projet</option>
+            <option value="Gestionnaire de projet">Gestionnaire de projet</option>
+        </select>
+    </div>
+
+    <div class="mb-4">
+        <label for="mobilite" class="block text-sm font-medium text-gray-700">Mobilité *</label>
+        <select id="mobilite" name="mobilite" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+            <option value="" disabled selected hidden>Aucune</option>
+            <option value="Maroc">Maroc</option>
+            <option value="France">France</option>
+            <option value="Afrique">Afrique</option>
+            <option value="Europe">Europe</option>
+            <option value="Moyen Orient">Moyen Orient</option>
+        </select>
+    </div>
+
+    <!-- Expériences professionnelles -->
+    <h4 class="text-lg font-semibold mb-4">Expériences Professionnelles - <a href="#" onclick="resetExperienceInfo(event)" class="text-blue-500 hover:underline">Effacer</a></h4>
+    <div class="mb-4">
+        <span class="text-blue-500 cursor-pointer hover:underline" onclick="addExperience()"><strong>+ Ajouter</strong></span>
+        
+        <div id="experiences-container" class="mt-4 space-y-4">
+            <!-- Les expériences seront ajoutées ici dynamiquement -->
+        </div>
+    </div>
+    
+    <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Soumettre la Candidature</button>
+</form>
+
+<script>
+    function togglePrenomTexte() {
+        const prenom = document.getElementById('prenom').value;
+        const prenomTexte = document.getElementById('prenomTexte');
+        prenomTexte.style.display = (prenom === "-Aucun-") ? "none" : "block";
+    }
+
+    function resetBaseInfo(event) {
+        event.preventDefault();
+        document.querySelectorAll('#applicationForm .form-group input, #applicationForm .form-group select').forEach(input => {
+            input.value = '';
+        });
+        document.getElementById('prenomTexte').style.display = 'none';
+    }
+
+    function resetProfessionalInfo(event) {
+    event.preventDefault(); 
+    // Réinitialiser les informations professionnelles
+    document.getElementById('experience').value = ''; // Réinitialiser le champ "Années d'expérience"
+    document.getElementById('disponibilite').value = ''; 
+    document.getElementById('competences').value = ''; 
+    document.getElementById('disponibilite_immediate').value = '-Aucun-'; 
+    document.getElementById('employeur_actuel').value = ''; 
+    document.getElementById('fonction_actuelle').value = '-Aucun-'; 
+    document.getElementById('mobilite').value = 'Maroc'; 
+}
+
+
+    function resetExperienceInfo(event) {
+        event.preventDefault();
+        const container = document.getElementById('experiences-container');
+        container.innerHTML = '';
+      
+        experienceCount = 0;
+    }
+
+    let experienceCount = 0;
+   
+
+    function addExperience() {
+    experienceCount++;
+   
+    const container = document.getElementById('experiences-container');
+
+    const experienceDiv = document.createElement('div');
+    experienceDiv.className = 'experience-group';
+    experienceDiv.id = `experience-${experienceCount}`;
+
+    experienceDiv.innerHTML = `
+        <h5 class="text-md font-semibold mb-2">Expérience ${experienceCount}</h5>
+        <div class="form-group mb-4">
+            <label for="profession-${experienceCount}" class="block font-medium mb-1">Profession/Titre *</label>
+            <input type="text" id="profession-${experienceCount}" name="profession-${experienceCount}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500" required />
+        </div>
+        <div class="form-group mb-4">
+            <label for="societe-${experienceCount}" class="block font-medium mb-1">Société *</label>
+            <input type="text" id="societe-${experienceCount}" name="societe-${experienceCount}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500" required />
+        </div>
+        <div class="form-group mb-4">
+            <label for="description-${experienceCount}" class="block font-medium mb-1">Description *</label>
+            <input type="text" id="description-${experienceCount}" name="description-${experienceCount}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500" required />
+        </div>
+        <div class="form-group mb-4">
+            <label for="periode-${experienceCount}" class="block font-medium mb-1">Période *</label>
+            <div class="flex items-center space-x-2">
+                <select class="periode-select w-1/4 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500" id="mois-debut-${experienceCount}" name="mois-debut-${experienceCount}">
+                    <option value="">Mois</option>
+                    ${generateMonthOptions()}
+                </select>
+                <select class="periode-select w-1/4 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500" id="annee-debut-${experienceCount}" name="annee-debut-${experienceCount}">
+                    <option value="">An</option>
+                    ${generateYearOptions()}
+                </select>
+                <span class="periode-separator mx-2">À</span>
+                <select class="periode-select w-1/4 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500" id="mois-fin-${experienceCount}" name="mois-fin-${experienceCount}">
+                    <option value="">Mois</option>
+                    ${generateMonthOptions()}
+                </select>
+                <select class="periode-select w-1/4 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500" id="annee-fin-${experienceCount}" name="annee-fin-${experienceCount}">
+                    <option value="">An</option>
+                    ${generateYearOptions()}
+                </select>
+            </div>
+            <div class="checkbox-row flex items-center mt-2">
+                <input type="checkbox" id="etudes-en-cours-${experienceCount}" name="etudes-en-cours-${experienceCount}" class="mr-2">
+                <label for="etudes-en-cours-${experienceCount}" class="font-medium">Je travaille ici actuellement</label>
+            </div>
+        </div>
+        <button type="button" onclick="removeExperience(${experienceCount})" class="btn btn-danger bg-red-600 text-white px-4 py-2 rounded-md">Supprimer</button>
+    `;
+
+    container.appendChild(experienceDiv);
+    setupEtudesEnCours(experienceCount);
+
+
+}
+
+function generateMonthOptions() {
+    const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+    return months.map((month, index) => `<option value="${index + 1}">${month}</option>`).join('');
+}
+
+function generateYearOptions() {
+    const currentYear = new Date().getFullYear();
+    let options = '';
+    for (let year = currentYear; year >= currentYear - 50; year--) {
+        options += `<option value="${year}">${year}</option>`;
+    }
+    return options;
+}
+
+function setupEtudesEnCours(id) {
+    const checkbox = document.getElementById(`etudes-en-cours-${id}`);
+    const moisFin = document.getElementById(`mois-fin-${id}`);
+    const anneeFin = document.getElementById(`annee-fin-${id}`);
+    
+    checkbox.addEventListener('change', function() {
+        moisFin.disabled = this.checked;
+        anneeFin.disabled = this.checked;
+        if (this.checked) {
+            moisFin.value = '';
+            anneeFin.value = '';
+        }
+    });
+}
+
+function removeExperience(id) {
+    console.log(`Attempting to remove experience-${id}`); 
+
+    const experienceDiv = document.getElementById(`experience-${id}`);
+
+    if (experienceDiv) {
+        console.log(`Found and removing experience-${id}`);
+        experienceDiv.remove();
+
+        // Mettre à jour les titres et les IDs des expériences restantes
+        updateExperienceTitles();
+    } else {
+        console.error(`No experience found with id: experience-${id}`);
+    }
+}
+
+
+function updateExperienceTitles() {
+    const experienceGroups = document.querySelectorAll('.experience-group');
+    experienceGroups.forEach((group, index) => {
+        const title = group.querySelector('h5');
+        title.textContent = `Expérience ${index + 1}`;
+
+        const oldId = group.id;
+        const newId = `experience-${index + 1}`;
+        group.id = newId;
+
+        group.querySelectorAll('input, select').forEach(input => {
+            const oldName = input.name;
+            const newName = oldName.replace(/\d+$/, index + 1);
+            input.name = newName;
+            input.id = newName;
+        });
+    });
+
+    experienceCount = experienceGroups.length;
+}
+
+
+    function resetExperienceInfo(event) {
+        event.preventDefault();
+        const container = document.getElementById('experiences-container');
+        container.innerHTML = '';
+        experienceCount = 0;
+    }
+
+    document.querySelector('[onclick="resetBaseInfo(event)"]').addEventListener('click', resetBaseInfo);
+    document.querySelector('[onclick="resetProfessionalInfo(event)"]').addEventListener('click', resetProfessionalInfo);
+    document.querySelector('[onclick="resetExperienceInfo(event)"]').addEventListener('click', resetExperienceInfo);
+
+    function setupPeriodeSearch(id) {
+        const container = document.getElementById(`experience-${id}`);
+        const searchInputs = container.querySelectorAll('.periode-search');
+
+        searchInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                const targetId = this.dataset.target;
+                const select = document.getElementById(targetId);
+                const filter = this.value.toLowerCase();
+
+                Array.from(select.options).forEach(option => {
+                    const text = option.textContent.toLowerCase();
+                    if (text.includes(filter)) {
+                        option.style.display = '';
+                    } else {
+                        option.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
+    function setupPeriodeSearch(id) {
+    const container = document.getElementById(`experience-${id}`);
+    const searchInputs = container.querySelectorAll('.periode-search');
+
+    searchInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            const targetId = this.dataset.target;
+            const select = document.getElementById(targetId);
+            const filter = this.value.toLowerCase();
+
+            Array.from(select.options).forEach(option => {
+                if (option.text.toLowerCase().includes(filter)) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+        });
+    });
+}
+
+</script>
+</body>
+</html>

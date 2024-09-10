@@ -1,0 +1,65 @@
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const mobiliteInput = document.getElementById('mobilite');
+    const errorSpan = document.getElementById('mobilite-error');
+
+    // Options disponibles pour la mobilité
+    const mobiliteOptions = ["Maroc", "France", "Afrique", "Europe", "Moyen Orient"];
+
+    // Initialisation de Tagify sur le champ de mobilité
+    const tagifyMobilite = new Tagify(mobiliteInput, {
+        whitelist: mobiliteOptions,
+        dropdown: {
+            maxItems: 5,
+            classname: "suggestions",
+            enabled: 0,
+            closeOnSelect: false
+        }
+    });
+
+    let fieldTouched = false;
+
+    // Fonction de validation
+    function validateMobilite() {
+        const selectedValues = tagifyMobilite.value;
+
+        if (fieldTouched && selectedValues.length === 0) {
+            errorSpan.classList.remove('hidden');
+            mobiliteInput.classList.add('border-red-500');
+        } else {
+            errorSpan.classList.add('hidden');
+            mobiliteInput.classList.remove('border-red-500');
+        }
+    }
+
+    // Marquer le champ comme touché lors de l'interaction
+    tagifyMobilite.on('focus', function() {
+        fieldTouched = true;
+    });
+
+    // Validation lors de la modification des éléments sélectionnés
+    tagifyMobilite.on('add', function() {
+        fieldTouched = true;
+        validateMobilite();
+    });
+    tagifyMobilite.on('remove', function() {
+        fieldTouched = true;
+        validateMobilite();
+    });
+
+    // Ajouter un écouteur d'événement pour le "blur"
+    mobiliteInput.addEventListener('blur', function() {
+        fieldTouched = true;
+        validateMobilite();
+    });
+
+    // Validation lorsque l'utilisateur clique en dehors du champ
+    document.addEventListener('click', function(event) {
+        if (!mobiliteInput.contains(event.target) && !tagifyMobilite.DOM.dropdown.contains(event.target)) {
+            fieldTouched = true;
+            validateMobilite();
+        }
+    });
+});
+
+</script>

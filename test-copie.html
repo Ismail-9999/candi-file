@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de candidature</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+
+    <style>
+        .form-container {
+            font-family: Lato, sans-serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-family: Lato, sans-serif;
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            font-family: Lato, sans-serif;
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group select {
+            flex: 1;
+        }
+
+        .input-group input {
+            flex: 2;
+            display: none;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .experience-group {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        .add-experience {
+            display: inline-block;
+            color: #19936a;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .periode-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.periode-select {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.periode-separator {
+    margin: 0 10px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-row input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+
+
+    </style>
+</head>
+<body class="bg-gray-100">
+
+<form id="applicationForm" class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <!-- Informations de base -->
+    <h3 class="text-lg font-semibold mb-4">Informations de base - <a href="#" class="text-green-500" onclick="resetBaseInfo(event)">Effacer</a></h3>
+    
+    <div class="form-group">
+        <label for="nom" class="block text-sm font-medium text-gray-700">Nom <span class="text-red-500">*</span></label>
+        <input type="text" id="nom" name="nom" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom <span class="text-red-500">*</span></label>
+        <div class="input-group">
+            <select id="prenom" name="prenom" class="form-control" onchange="togglePrenomTexte()" required>
+                <option value="-Aucun-">-Aucun-</option>
+                <option value="M.">M.</option>
+                <option value="Mme">Mme</option>
+                <option value="Mlle">Mlle</option>
+            </select>
+            <input type="text" id="prenomTexte" name="prenomTexte" class="form-control" placeholder="Prénom" style="display:none;" />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="email" class="block text-sm font-medium text-gray-700">Adresse e-mail <span class="text-red-500">*</span></label>
+        <input type="email" id="email" name="email" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="portable" class="block text-sm font-medium text-gray-700">Portable <span class="text-red-500">*</span> </label>
+        <input type="text" id="portable" name="portable" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="nationalite" class="block text-sm font-medium text-gray-700">Nationalité <span class="text-red-500">*</span> </label>
+        <input type="text" id="nationalite" name="nationalite" class="form-control" required />
+    </div>
+    
+    <h3 class="text-lg font-semibold mt-6 mb-4">Informations professionnelles - <a href="#" class="text-green-500" onclick="resetProfessionalInfo(event)">Effacer</a></h3>
+    
+    <div class="form-group">
+        <label for="experience" class="block text-sm font-medium text-gray-700">Années d'expérience  <span class="text-red-500">*</span></label>
+        <input type="number" id="experience" name="experience" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="disponibilite" class="block text-sm font-medium text-gray-700">Date de disponibilité <span class="text-red-500">*</span></label>
+        <input type="date" id="disponibilite" name="disponibilite" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="competences" class="block text-sm font-medium text-gray-700">Compétences <span class="text-red-500">*</span></label>
+        <input type="text" id="competences" name="competences" class="form-control" placeholder="Rechercher et ajouter des compétences" required />
+    </div>
+
+    <div class="form-group">
+        <label for="disponibilite_immediate" class="block text-sm font-medium text-gray-700">Disponibilité Immédiate <span class="text-red-500">*</span></label>
+        <select id="disponibilite_immediate" name="disponibilite_immediate" class="form-control" required>
+            <option value="-Aucun-">-Aucun-</option>
+            <option value="Oui">Oui</option>
+            <option value="Non">Non</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="employeur_actuel" class="block text-sm font-medium text-gray-700">Employeur actuel <span class="text-red-500">*</span></label>
+        <input type="text" id="employeur_actuel" name="employeur_actuel" class="form-control" required />
+    </div>
+    
+    <div class="form-group">
+        <label for="fonction_actuelle" class="block text-sm font-medium text-gray-700">Fonction actuelle <span class="text-red-500">*</span></label>
+        <select id="fonction_actuelle" name="fonction_actuelle" class="form-control" required>
+            <option value="-Aucun-">Aucun</option>
+            <option value="Débutant">Débutant</option>
+            <option value="Chef de projet">Chef de projet</option>
+            <option value="Gestionnaire de projet">Gestionnaire de projet</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="mobilite" class="block text-sm font-medium text-gray-700">Mobilité <span class="text-red-500">*</span></label>
+        <select id="mobilite" name="mobilite" class="form-control" required>
+            <option value="" disabled selected hidden>Aucune</option>
+            <option value="Maroc">Maroc</option>
+            <option value="France">France</option>
+            <option value="Afrique">Afrique</option>
+            <option value="Europe">Europe</option>
+            <option value="Moyen Orient">Moyen Orient</option>
+        </select>
+    </div>
+
+    <!-- Expériences professionnelles -->
+    <h3 class="text-lg font-semibold mt-6 mb-4">Expériences Professionnelles - <a href="#" class="text-green-500" onclick="resetExperienceInfo(event)">Effacer</a></h3>
+    <div class="form-group">
+        <span class="add-experience" onclick="addExperience()"><strong>+ Ajouter plus</strong></span>
+        
+        <div id="experiences-container">
+            <!-- Les expériences seront ajoutées ici dynamiquement -->
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Soumettre la Candidature</button>
+</form>
+
+<script>
+    function togglePrenomTexte() {
+        const prenom = document.getElementById('prenom').value;
+        const prenomTexte = document.getElementById('prenomTexte');
+        prenomTexte.style.display = (prenom === "-Aucun-") ? "none" : "block";
+    }
+
+    function resetBaseInfo(event) {
+        event.preventDefault();
+        document.querySelectorAll('#applicationForm .form-group input, #applicationForm .form-group select').forEach(input => {
+            input.value = '';
+        });
+        document.getElementById('prenomTexte').style.display = 'none';
+    }
+
+    function resetProfessionalInfo(event) {
+    event.preventDefault(); 
+    // Réinitialiser les informations professionnelles
+    document.getElementById('experience').value = ''; // Réinitialiser le champ "Années d'expérience"
+    document.getElementById('disponibilite').value = ''; 
+    document.getElementById('competences').value = ''; 
+    document.getElementById('disponibilite_immediate').value = '-Aucun-'; 
+    document.getElementById('employeur_actuel').value = ''; 
+    document.getElementById('fonction_actuelle').value = '-Aucun-'; 
+    document.getElementById('mobilite').value = 'Maroc'; 
+}
+
+
+    function resetExperienceInfo(event) {
+        event.preventDefault();
+        const container = document.getElementById('experiences-container');
+        container.innerHTML = '';
+      
+        experienceCount = 0;
+    }
+
+    let experienceCount = 0;
+   
+
+    function addExperience() {
+    experienceCount++;
+   
+    const container = document.getElementById('experiences-container');
+
+    const experienceDiv = document.createElement('div');
+    experienceDiv.className = 'experience-group';
+    experienceDiv.id = `experience-${experienceCount}`;
+
+    experienceDiv.innerHTML = `
+        <h5 class="font-bold">Expérience ${experienceCount}</h5>
+        <div class="form-group">
+            <label for="profession-${experienceCount}" class="block text-sm font-medium text-gray-700">Profession/Titre <span class="text-red-500">*</span></label>
+            <input type="text" id="profession-${experienceCount}" name="profession-${experienceCount}" required />
+        </div>
+        <div class="form-group">
+            <label for="societe-${experienceCount}" class="block text-sm font-medium text-gray-700">Société  <span class="text-red-500">*</span></label>
+            <input type="text" id="societe-${experienceCount}" name="societe-${experienceCount}" required />
+        </div>
+        <div class="form-group">
+            <label for="description-${experienceCount}" class="block text-sm font-medium text-gray-700">Description <span class="text-red-500">*</span></label>
+            <input type="text" id="description-${experienceCount}" name="description-${experienceCount}" required />
+        </div>
+        <div class="form-group">
+            <label for="periode-${experienceCount}" class="block text-sm font-medium text-gray-700">Période <span class="text-red-500">*</span></label>
+            <div class="periode-row">
+                <select class="periode-select" id="mois-debut-${experienceCount}" name="mois-debut-${experienceCount}">
+                    <option value="">Mois</option>
+                    ${generateMonthOptions()}
+                </select>
+                <select class="periode-select" id="annee-debut-${experienceCount}" name="annee-debut-${experienceCount}">
+                    <option value="">An</option>
+                    ${generateYearOptions()}
+                </select>
+                <span class="periode-separator">À</span>
+                <select class="periode-select" id="mois-fin-${experienceCount}" name="mois-fin-${experienceCount}">
+                    <option value="">Mois</option>
+                    ${generateMonthOptions()}
+                </select>
+                <select class="periode-select" id="annee-fin-${experienceCount}" name="annee-fin-${experienceCount}">
+                    <option value="">An</option>
+                    ${generateYearOptions()}
+                </select>
+            </div>
+            <div class="checkbox-row">
+                <input type="checkbox" id="etudes-en-cours-${experienceCount}" name="etudes-en-cours-${experienceCount}">
+                <label for="etudes-en-cours-${experienceCount}">Je travaille ici actuellement</label>
+            </div>
+        </div>
+        <button type="button" onclick="removeExperience(${experienceCount})" class="text-red-500 font-bold">Supprimer</button>
+    `;
+
+    container.appendChild(experienceDiv);
+    setupEtudesEnCours(experienceCount);
+
+
+}
+
+function generateMonthOptions() {
+    const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+    return months.map((month, index) => `<option value="${index + 1}">${month}</option>`).join('');
+}
+
+function generateYearOptions() {
+    const currentYear = new Date().getFullYear();
+    let options = '';
+    for (let year = currentYear; year >= currentYear - 50; year--) {
+        options += `<option value="${year}">${year}</option>`;
+    }
+    return options;
+}
+
+function setupEtudesEnCours(id) {
+    const checkbox = document.getElementById(`etudes-en-cours-${id}`);
+    const moisFin = document.getElementById(`mois-fin-${id}`);
+    const anneeFin = document.getElementById(`annee-fin-${id}`);
+    
+    checkbox.addEventListener('change', function() {
+        moisFin.disabled = this.checked;
+        anneeFin.disabled = this.checked;
+        if (this.checked) {
+            moisFin.value = '';
+            anneeFin.value = '';
+        }
+    });
+}
+
+function removeExperience(id) {
+    console.log(`Attempting to remove experience-${id}`); 
+
+    const experienceDiv = document.getElementById(`experience-${id}`);
+
+    if (experienceDiv) {
+        console.log(`Found and removing experience-${id}`);
+        experienceDiv.remove();
+
+        // Mettre à jour les titres et les IDs des expériences restantes
+        updateExperienceTitles();
+    } else {
+        console.error(`No experience found with id: experience-${id}`);
+    }
+}
+
+
+function updateExperienceTitles() {
+    const experienceGroups = document.querySelectorAll('.experience-group');
+    experienceGroups.forEach((group, index) => {
+        const title = group.querySelector('h5');
+        title.textContent = `Expérience ${index + 1}`;
+
+        const oldId = group.id;
+        const newId = `experience-${index + 1}`;
+        group.id = newId;
+
+        group.querySelectorAll('input, select').forEach(input => {
+            const oldName = input.name;
+            const newName = oldName.replace(/\d+$/, index + 1);
+            input.name = newName;
+            input.id = newName;
+        });
+    });
+
+    experienceCount = experienceGroups.length;
+}
+
+
+    function resetExperienceInfo(event) {
+        event.preventDefault();
+        const container = document.getElementById('experiences-container');
+        container.innerHTML = '';
+        experienceCount = 0;
+    }
+
+    document.querySelector('[onclick="resetBaseInfo(event)"]').addEventListener('click', resetBaseInfo);
+    document.querySelector('[onclick="resetProfessionalInfo(event)"]').addEventListener('click', resetProfessionalInfo);
+    document.querySelector('[onclick="resetExperienceInfo(event)"]').addEventListener('click', resetExperienceInfo);
+
+    function setupPeriodeSearch(id) {
+        const container = document.getElementById(`experience-${id}`);
+        const searchInputs = container.querySelectorAll('.periode-search');
+
+        searchInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                const targetId = this.dataset.target;
+                const select = document.getElementById(targetId);
+                const filter = this.value.toLowerCase();
+
+                Array.from(select.options).forEach(option => {
+                    const text = option.textContent.toLowerCase();
+                    if (text.includes(filter)) {
+                        option.style.display = '';
+                    } else {
+                        option.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+</script>
+</body>
+</html>

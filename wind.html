@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de candidature</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+<div class="max-w-3xl mx-auto p-6">
+    <form id="applicationForm" class="bg-white p-8 shadow-md rounded-lg">
+        <h2 class="text-2xl font-bold mb-6">Expériences Professionnelles</h2>
+        
+        <div id="experiences-container">
+            <!-- Dynamic experience cards will be added here -->
+        </div>
+
+        <button type="button" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 transition duration-200" onclick="addExperience()">+ Ajouter une expérience</button>
+    </form>
+</div>
+
+<script>
+    let experienceCount = 0;
+
+    function addExperience() {
+        experienceCount++;
+        const container = document.getElementById('experiences-container');
+
+        const experienceDiv = document.createElement('div');
+        experienceDiv.className = 'experience-card flex items-start p-4 bg-gray-50 mb-4 rounded-lg shadow-sm border-l-4 border-blue-500 transform transition duration-300 ease-in-out opacity-0';
+        experienceDiv.id = `experience-${experienceCount}`;
+
+        experienceDiv.innerHTML = `
+            <div class="number-circle bg-blue-500 text-white h-8 w-8 flex items-center justify-center rounded-full mr-4">${experienceCount}</div>
+            <div class="flex-grow">
+                <h3 class="text-xl font-semibold mb-2">Expérience ${experienceCount}</h3>
+                <div class="mb-4">
+                    <label for="profession-${experienceCount}" class="block text-sm font-medium text-gray-700">Profession/Titre *</label>
+                    <input type="text" id="profession-${experienceCount}" name="profession-${experienceCount}" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="societe-${experienceCount}" class="block text-sm font-medium text-gray-700">Société *</label>
+                    <input type="text" id="societe-${experienceCount}" name="societe-${experienceCount}" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="description-${experienceCount}" class="block text-sm font-medium text-gray-700">Description *</label>
+                    <input type="text" id="description-${experienceCount}" name="description-${experienceCount}" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                </div>
+                <button type="button" onclick="removeExperience(${experienceCount})" class="bg-red-500 text-white px-3 py-1 rounded-md shadow hover:bg-red-600 transition duration-200">Supprimer</button>
+            </div>
+        `;
+
+        container.appendChild(experienceDiv);
+        
+        // Apply animation by setting opacity and scale
+        setTimeout(() => {
+            experienceDiv.style.opacity = '1';
+            experienceDiv.style.transform = 'scale(1)';
+        }, 10);
+    }
+
+    function removeExperience(id) {
+        const experienceDiv = document.getElementById(`experience-${id}`);
+        if (experienceDiv) {
+            experienceDiv.style.opacity = '0';
+            experienceDiv.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                experienceDiv.remove();
+                updateExperienceTitles();
+            }, 300); // Wait for the animation to finish before removing
+        }
+    }
+
+    function updateExperienceTitles() {
+        const experienceCards = document.querySelectorAll('.experience-card');
+        experienceCards.forEach((card, index) => {
+            card.querySelector('.number-circle').textContent = index + 1;
+            card.querySelector('h3').textContent = `Expérience ${index + 1}`;
+            const oldId = card.id;
+            const newId = `experience-${index + 1}`;
+            card.id = newId;
+            card.querySelectorAll('input').forEach(input => {
+                const oldName = input.name;
+                const newName = oldName.replace(/\d+$/, index + 1);
+                input.name = newName;
+                input.id = newName;
+            });
+        });
+        experienceCount = experienceCards.length;
+    }
+</script>
+
+</body>
+</html>

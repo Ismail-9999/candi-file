@@ -1,0 +1,65 @@
+<script>
+    
+    // Simplified phone number validation function
+function validatePortable(phoneNumber) {
+    console.log('Validating phone number:', phoneNumber);
+    const cleanedNumber = phoneNumber.replace(/\D/g, '');
+    const isValid = cleanedNumber.length === 10 && ['06', '07'].includes(cleanedNumber.substring(0, 2));
+    console.log('Phone number is valid:', isValid);
+    return isValid;
+}
+
+// Standalone function for portable field validation
+function validatePortableField() {
+    console.log('validatePortableField called');
+    const portableInput = document.getElementById('portable');
+    const errorSpan = document.getElementById('portable-error');
+    
+    if (!portableInput || !errorSpan) {
+        console.error('Portable input or error span not found');
+        return;
+    }
+
+    if (portableInput.value.trim() === "") {
+        errorSpan.textContent = "Ce champ est requis.";
+        errorSpan.classList.remove('hidden');
+    } else if (!validatePortable(portableInput.value)) {
+        errorSpan.textContent = "Numéro de téléphone invalide.";
+        errorSpan.classList.remove('hidden');
+    } else {
+        errorSpan.classList.add('hidden');
+    }
+}
+
+// Function to set up event listeners
+function setupValidation() {
+    console.log('Setting up validation');
+    const portableInput = document.getElementById('portable');
+    
+    if (portableInput) {
+        portableInput.addEventListener('blur', validatePortableField);
+        portableInput.addEventListener('input', validatePortableField);
+        console.log('Event listeners added to portable field');
+    } else {
+        console.error('Portable input not found');
+    }
+}
+
+// Initialize validation when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded');
+    setupValidation();
+});
+
+// Backup initialization in case DOMContentLoaded has already fired
+if (document.readyState === 'complete') {
+    console.log('DOM already loaded, setting up validation immediately');
+    setupValidation();
+}
+</script>
+
+<div class="form-group">
+    <label for="portable" class="block text-sm font-medium text-gray-700">Portable <span class="text-red-500">*</span></label>
+    <input type="tel" id="portable" name="portable" required />
+    <span id="portable-error" class="error-message hidden">Ce champ est requis.</span>
+</div>

@@ -1,0 +1,130 @@
+<form id="applicationForm" class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <!-- Informations de base -->
+    <h3 class="text-lg font-semibold mb-4">
+        Informations de base - 
+        <a href="#" id="resetBaseInfoLink" class="text-green-500" onclick="resetBaseInfo(event)" style="font-weight: normal; opacity: 0.5; pointer-events: none; cursor: not-allowed;">Effacer</a>
+    </h3>
+    
+    <div class="form-group">
+        <label for="nom" class="block text-sm font-medium text-gray-700">Nom <span class="text-red-500">*</span></label>
+        <input type="text" id="nom" name="nom" class="form-control" required oninput="checkSectionStatus('base')" />
+    </div>
+    
+    <div class="form-group">
+        <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom <span class="text-red-500">*</span></label>
+        <input type="text" id="prenom" name="prenom" class="form-control" required oninput="checkSectionStatus('base')" />
+        <input type="text" id="prenomTexte" name="prenomTexte" class="form-control" placeholder="Prénom" style="display:none;" />
+    </div>
+
+    <!-- Séparateur -->
+    <hr class="my-6 border-gray-300">
+
+    <!-- Informations professionnelles -->
+    <h3 class="text-lg font-semibold mt-6 mb-4">
+        Informations professionnelles - 
+        <a href="#" id="resetProfessionalInfoLink" class="text-green-500" onclick="resetProfessionalInfo(event)" style="font-weight: normal; opacity: 0.5; pointer-events: none; cursor: not-allowed;">Effacer</a>
+    </h3>
+
+    <div class="form-group">
+        <label for="experience" class="block text-sm font-medium text-gray-700">Années d'expérience <span class="text-red-500">*</span></label>
+        <input type="number" id="experience" name="experience" class="form-control" required oninput="checkSectionStatus('professional')" />
+    </div>
+
+    <div class="form-group">
+        <label for="disponibilite" class="block text-sm font-medium text-gray-700">Date de disponibilité <span class="text-red-500">*</span></label>
+        <input type="date" id="disponibilite" name="disponibilite" class="form-control" required oninput="checkSectionStatus('professional')" />
+    </div>
+
+    <!-- Séparateur -->
+    <hr class="my-6 border-gray-300">
+
+    <!-- Expériences professionnelles -->
+    <h3 class="text-lg font-semibold mt-6 mb-4">
+        Expériences Professionnelles - 
+        <a href="#" id="resetExperienceInfoLink" class="text-green-500" onclick="resetExperienceInfo(event)" style="font-weight: normal; opacity: 0.5; pointer-events: none; cursor: not-allowed;">Effacer</a>
+    </h3>
+    <div class="form-group" id="experiences-container">
+        <!-- Les expériences seront ajoutées ici dynamiquement -->
+    </div>
+
+    <span class="add-experience" onclick="addExperience()"><strong>+ Ajouter</strong></span>
+</form>
+
+<script>
+    function checkSectionStatus(section) {
+        let fields;
+
+        if (section === 'base') {
+            fields = document.querySelectorAll('#nom, #prenom');
+            updateResetButton(fields, 'resetBaseInfoLink');
+        } else if (section === 'professional') {
+            fields = document.querySelectorAll('#experience, #disponibilite, #competences, #disponibilite_immediate, #employeur_actuel, #fonction_actuelle, #mobilite');
+            updateResetButton(fields, 'resetProfessionalInfoLink');
+        } else if (section === 'experience') {
+            fields = document.querySelectorAll('#experiences-container input');
+            updateResetButton(fields, 'resetExperienceInfoLink');
+        }
+    }
+
+    function updateResetButton(fields, resetButtonId) {
+        const resetButton = document.getElementById(resetButtonId);
+        let allEmpty = true;
+
+        fields.forEach(field => {
+            if (field.value.trim() !== '') {
+                allEmpty = false;
+            }
+        });
+
+        if (allEmpty) {
+            resetButton.style.fontWeight = 'normal';
+            resetButton.style.opacity = '0.5'; // Griser le bouton
+            resetButton.style.pointerEvents = 'none'; // Désactiver le clic
+            resetButton.style.cursor = 'not-allowed'; // Icône de curseur "interdit"
+        } else {
+            resetButton.style.fontWeight = 'bold';
+            resetButton.style.opacity = '1'; // Rendre le bouton visible
+            resetButton.style.pointerEvents = 'auto'; // Activer le clic
+            resetButton.style.cursor = 'pointer'; // Icône de curseur normale
+        }
+    }
+
+    function resetBaseInfo(event) {
+        event.preventDefault();
+        document.querySelectorAll('#applicationForm .form-group input, #applicationForm .form-group select').forEach(input => {
+            input.value = '';
+        });
+        document.getElementById('prenomTexte').style.display = 'none';
+        checkSectionStatus('base');
+    }
+
+    function resetProfessionalInfo(event) {
+        event.preventDefault();
+        document.getElementById('experience').value = ''; 
+        document.getElementById('disponibilite').value = ''; 
+        document.getElementById('competences').value = ''; 
+        document.getElementById('disponibilite_immediate').value = '-Aucun-'; 
+        document.getElementById('employeur_actuel').value = ''; 
+        document.getElementById('fonction_actuelle').value = '-Aucun-'; 
+        document.getElementById('mobilite').value = 'Maroc'; 
+        checkSectionStatus('professional');
+    }
+
+    function resetExperienceInfo(event) {
+        event.preventDefault();
+        const container = document.getElementById('experiences-container');
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+        experienceCount = 0;  // Réinitialiser le compteur à zéro
+        document.querySelector('.add-experience strong').textContent = '+ Ajouter';
+        checkSectionStatus('experience');
+    }
+
+    // Initialisation de l'état des boutons lors du chargement de la page
+    document.addEventListener("DOMContentLoaded", function() {
+        checkSectionStatus('base');
+        checkSectionStatus('professional');
+        checkSectionStatus('experience');
+    });
+</script>

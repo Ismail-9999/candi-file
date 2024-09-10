@@ -1,0 +1,47 @@
+<script>
+// Fonction pour vérifier si tous les champs sont vides
+function areFieldsEmpty(formId) {
+    const inputs = document.querySelectorAll(`#${formId} .form-group input, #${formId} .form-group select`);
+    return Array.from(inputs).every(input => !input.value);
+}
+
+// Fonction pour mettre à jour le style du bouton Effacer
+function updateClearButton(buttonId, formId) {
+    const button = document.getElementById(buttonId);
+    if (areFieldsEmpty(formId)) {
+        button.classList.add('text-gray-500', 'cursor-not-allowed');
+        button.classList.remove('font-semibold');
+        button.classList.add('font-normal');
+        button.removeAttribute('onclick');
+    } else {
+        button.classList.remove('text-gray-500', 'cursor-not-allowed');
+        button.classList.add('font-semibold');
+        button.setAttribute('onclick', `resetSection('${formId}')`);
+    }
+}
+
+// Fonction pour réinitialiser une section
+function resetSection(formId) {
+    document.querySelectorAll(`#${formId} .form-group input, #${formId} .form-group select`).forEach(input => {
+        input.value = '';
+        // Réinitialiser les messages d'erreur
+        const errorSpan = document.getElementById(`${input.id}-error`);
+        if (errorSpan) {
+            errorSpan.classList.add('hidden');
+        }
+    });
+    updateClearButton(`resetButton-${formId}`, formId); // Met à jour le bouton après réinitialisation
+}
+
+// Fonction appelée lorsque le formulaire change pour mettre à jour le bouton Effacer
+function onFormChange(formId) {
+    updateClearButton(`resetButton-${formId}`, formId);
+}
+
+// Attacher l'événement de changement à chaque formulaire
+document.querySelectorAll('#applicationForm .form-group input, #applicationForm .form-group select').forEach(input => {
+    input.addEventListener('input', () => onFormChange('applicationForm'));
+});
+</script>
+
+<h3 class="text-lg font-semibold mb-4">Informations de base - <a href="#" id="resetButton-applicationForm" class="text-green-500 font-semibold" onclick="resetSection('applicationForm')">Effacer</a></h3>

@@ -1,0 +1,86 @@
+<script>
+function validateForms() {
+    let isValid = true;
+
+    // Validate Experience fields
+    const experienceDivs = document.querySelectorAll('[id^="experience-"]');
+    experienceDivs.forEach((div, index) => {
+        const profession = document.getElementById(`profession-${index + 1}`);
+        const societe = document.getElementById(`societe-${index + 1}`);
+        const description = document.getElementById(`description-${index + 1}`);
+
+        if (!validateField(profession, `profession-${index + 1}-error`)) isValid = false;
+        if (!validateField(societe, `societe-${index + 1}-error`)) isValid = false;
+        if (!validateField(description, `description-${index + 1}-error`)) isValid = false;
+    });
+
+    // Validate Educational fields
+    const educationalDivs = document.querySelectorAll('[id^="educational-"]');
+    educationalDivs.forEach((div, index) => {
+        const institut = document.getElementById(`institut-${index + 1}`);
+        const specialisation = document.getElementById(`specialisation-${index + 1}`);
+        const degree = document.getElementById(`degree-${index + 1}`);
+
+        if (!validateField(institut, `institut-${index + 1}-error`)) isValid = false;
+        if (!validateField(specialisation, `specialisation-${index + 1}-error`)) isValid = false;
+        if (!validateField(degree, `degree-${index + 1}-error`)) isValid = false;
+    });
+
+    return isValid;
+}
+
+function validateField(field, errorId) {
+    const errorSpan = document.getElementById(errorId);
+    if (!field.value.trim()) {
+        errorSpan.textContent = "Ce champ est requis.";
+        errorSpan.classList.remove('hidden');
+        field.classList.add('border-red-500');
+        return false;
+    } else {
+        errorSpan.classList.add('hidden');
+        field.classList.remove('border-red-500');
+        return true;
+    }
+}
+
+// Add this to your existing addExperience function
+function addExperience() {
+    // ... existing code ...
+
+    experienceDiv.innerHTML = `
+        <div class="crc-tabular-count"> ${experienceCount}</div>
+        <div class="form-group">
+            <label for="profession-${experienceCount}" class="block text-sm font-medium text-gray-700">Profession/Titre <span class="text-red-500">*</span></label>
+            <input type="text" id="profession-${experienceCount}" name="profession-${experienceCount}" required />
+            <span id="profession-${experienceCount}-error" class="error-message hidden">Ce champ est requis.</span>
+        </div>
+        <div class="form-group">
+            <label for="societe-${experienceCount}" class="block text-sm font-medium text-gray-700">Société  <span class="text-red-500">*</span></label>
+            <input type="text" id="societe-${experienceCount}" name="societe-${experienceCount}" required />
+            <span id="societe-${experienceCount}-error" class="error-message hidden">Ce champ est requis.</span>
+        </div>
+        <div class="form-group">
+            <label for="description-${experienceCount}" class="block text-sm font-medium text-gray-700">Description <span class="text-red-500">*</span></label>
+            <textarea id="description-${experienceCount}" name="description-${experienceCount}" required rows="3" class="form-control"></textarea>
+            <span id="description-${experienceCount}-error" class="error-message hidden">Ce champ est requis.</span>
+        </div>
+    `;
+
+    // ... rest of the existing code ...
+}
+
+// Add this to your existing addEducational function
+function addEducational() {
+    // ... existing code ...
+
+    // The content remains the same as you provided, as it already includes error spans
+}
+
+// Example usage
+document.querySelector('form').addEventListener('submit', function(e) {
+    if (!validateForms()) {
+        e.preventDefault(); // Prevent form submission if validation fails
+    }
+});
+
+</script>

@@ -1,0 +1,46 @@
+<script>
+function setupEducationalDuration(id) {
+    const checkbox = document.getElementById(`etudes-en-cours-educ-${id}`);
+    const moisDebut = document.getElementById(`mois-debut-educ-${id}`);
+    const anneeDebut = document.getElementById(`annee-debut-educ-${id}`);
+    const moisFin = document.getElementById(`mois-fin-educ-${id}`);
+    const anneeFin = document.getElementById(`annee-fin-educ-${id}`);
+
+    checkbox.addEventListener('change', function() {
+        // Si la case est cochée, désactiver mois fin et année fin, et les réinitialiser
+        moisFin.disabled = this.checked;
+        anneeFin.disabled = this.checked;
+        if (this.checked) {
+            moisFin.value = '';
+            anneeFin.value = '';
+            // Cacher les messages d'erreur pour les champs de fin
+            document.getElementById(`mois-fin-educ-${id}-error`).classList.add('hidden');
+            document.getElementById(`annee-fin-educ-${id}-error`).classList.add('hidden');
+        } else {
+            // Lorsque la case est décochée, réactiver les champs de fin
+            moisFin.disabled = false;
+            anneeFin.disabled = false;
+        }
+    });
+
+    // Validation des champs de début de période
+    moisDebut.addEventListener('blur', function() {
+        validateEducationalField(moisDebut, `mois-debut-educ-${id}-error`);
+    });
+    anneeDebut.addEventListener('blur', function() {
+        validateEducationalField(anneeDebut, `annee-debut-educ-${id}-error`);
+    });
+
+    // Validation des champs de fin de période seulement si la case n'est pas cochée
+    moisFin.addEventListener('blur', function() {
+        if (!checkbox.checked) {
+            validateEducationalField(moisFin, `mois-fin-educ-${id}-error`);
+        }
+    });
+    anneeFin.addEventListener('blur', function() {
+        if (!checkbox.checked) {
+            validateEducationalField(anneeFin, `annee-fin-educ-${id}-error`);
+        }
+    });
+}
+</script>

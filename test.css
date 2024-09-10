@@ -1,0 +1,361 @@
+.form-container {
+    font-family: Lato, sans-serif;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-family: Lato, sans-serif;
+    display: block;
+    margin-bottom: 5px;
+    
+    color: #646d8c;
+}
+
+.form-group input, .form-group select {
+    font-family: Lato, sans-serif;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    color: #646d8c;
+}
+
+
+.form-control {
+    border: 1px solid #d1d5db; /* Bordure grise */
+    border-radius: 4px; /* Arrondir les coins */
+    padding: 0.5rem; /* Espacement interne */
+    width: 100%; /* Occuper toute la largeur disponible */
+    box-sizing: border-box; /* Inclure bordure et padding dans la largeur totale */
+}
+
+textarea {
+    border-radius: 4px;
+    border: 1px solid #d1d5db; /* Exemple de bordure transparente */
+    min-height: 100px; /* Hauteur minimale pour textarea */
+    resize: vertical; /* Permet de redimensionner verticalement */
+    font-family: Lato, sans-serif;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+ }
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group select {
+    flex: 1;
+}
+
+.input-group input {
+    flex: 2;
+    display: none;
+}
+
+.btn-primary {
+    background-color: #264D11;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-primary:hover {
+    background-color: #0a7a13;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #a8ada8;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.experience-group {
+    
+  
+}
+
+.experience-group.hidden {
+    opacity: 0;
+}
+
+.add-experience {
+    display: inline-block;
+    color: #19936a;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.add-educational {
+    display: inline-block;
+    color: #19936a;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.periode-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.periode-select {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.periode-separator {
+    margin: 0 10px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap:8px;
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 16px; /* Ajuster la taille si nécessaire */
+    height: 16px; /* Ajuster la taille si nécessaire */
+}
+
+.checkbox-row label {
+    font-size: 14px;
+}
+
+
+.text-red {
+    color: #dc3545;
+    cursor: pointer;
+    font-weight: bold;
+    position: relative; /* Changez de absolute à relative si nécessaire */
+    display: inline-block; /* Assurez-vous que le bouton est affiché */
+    transition: color 0.3s;
+    /* right: 20px; */
+   
+}
+
+.text-red:hover {
+    color: #a94442;
+}
+
+.button-container {
+display: flex;
+justify-content: center; /* Centre les boutons horizontalement */
+gap: 10px; /* Espacement entre les boutons */
+margin-top: 20px; /* Marge au-dessus des boutons */
+ }
+
+ .tabular-main-div {
+    position: relative;
+    padding-left: 60px;
+    max-width: 600px;
+    margin: 0 auto;
+
+}
+
+.tabular-main-div:before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: #f2f4f9;
+}
+
+.experience-entry {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.crc-tabular-count {
+    position: absolute;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border: 5px solid #007BFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    z-index: 1;
+    
+}
+
+.experience-content {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+
+
+        /* Ajoute une transition de fondu pour les éléments */
+.tabular-data-div {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Classe pour rendre l'élément invisible avant de le supprimer */
+.fade-out {
+    animation: fadeOut 0.5s forwards; /* Changez la durée si nécessaire */
+}
+
+.fade-in {
+    opacity: 1;
+   
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+label {
+display: block;
+margin-bottom: 5px;
+font-weight: bold;
+color: #606060;
+}
+
+.required {
+    color: red;
+}
+
+.custom-file-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.custom-file-input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.custom-file-label {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f5f6fa;
+    border: 2px dashed #d3d3d3;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.custom-file-label:hover {
+    background-color: #e0e0e0;
+}
+
+.file-list {
+    margin-top: 10px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f5f6fa;
+    border: 1px solid #d3d3d3;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.remove-file-button {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.remove-file-button:hover {
+    background-color: #d32f2f;
+}
+
+.custom-file-label.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Styles du popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup-buttons {
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}

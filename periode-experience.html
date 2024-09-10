@@ -1,0 +1,75 @@
+
+<script>
+function validateDuration(educationalCount) {
+    const moisDebut = document.getElementById(`mois-debut-educ-${educationalCount}`).value;
+    const anneeDebut = document.getElementById(`annee-debut-educ-${educationalCount}`).value;
+    const moisFin = document.getElementById(`mois-fin-educ-${educationalCount}`).value;
+    const anneeFin = document.getElementById(`annee-fin-educ-${educationalCount}`).value;
+    const educsEnCours = document.getElementById(`etudes-en-cours-educ-${educationalCount}`).checked;
+
+    let errorMessage = '';
+
+    // Si "Etudes en cours" est coché
+    if (educsEnCours) {
+        // Vérifier que les champs Mois début et Année début sont remplis
+        if (!moisDebut || !anneeDebut) {
+            errorMessage = "Durée ne peut pas être vide";
+        }
+    } else {
+        // Si la case n'est pas cochée, vérifier la période complète
+        if (!moisDebut || !anneeDebut || !moisFin || !anneeFin) {
+            errorMessage = "Entrez une durée valide";
+        } else if (anneeDebut > anneeFin || (anneeDebut === anneeFin && moisDebut > moisFin)) {
+            errorMessage = "La date de fin doit être postérieure ou égale à la date de début";
+        }
+    }
+
+    // Afficher ou cacher le message d'erreur
+    const errorElement = document.getElementById(`duree-error-${educationalCount}`);
+    if (errorMessage) {
+        if (!errorElement) {
+            const errorDiv = document.createElement('div');
+            errorDiv.id = `duree-error-${educationalCount}`;
+            errorDiv.classList.add('text-red-500', 'text-sm');
+            errorDiv.textContent = errorMessage;
+            document.getElementById(`educational-${educationalCount}`).appendChild(errorDiv);
+        } else {
+            errorElement.textContent = errorMessage;
+        }
+    } else if (errorElement) {
+        errorElement.remove();
+    }
+}
+
+function setupEducationalDuration(id) {
+    const checkbox = document.getElementById(`etudes-en-cours-educ-${educationalCount}`);
+    const moisFin = document.getElementById(`mois-fin-educ-${educationalCount}`);
+    const anneeFin = document.getElementById(`annee-fin-educ-${educationalCount}`);
+
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+            // Désactiver Mois fin et Année fin
+            moisFin.disabled = true;
+            anneeFin.disabled = true;
+
+            // Effacer les valeurs des champs Mois fin et Année fin
+            moisFin.value = '';
+            anneeFin.value = '';
+        } else {
+            // Réactiver Mois fin et Année fin
+            moisFin.disabled = false;
+            anneeFin.disabled = false;
+        }
+
+        // Valider la période
+        validateDuration(educationalCount);
+    });
+
+    // Ajouter des écouteurs pour la validation sur les dates
+    document.getElementById(`mois-debut-educ-${educationalCount}`).addEventListener('change', () => validateDuration(educationalCount));
+    document.getElementById(`annee-debut-educ-${educationalCount}`).addEventListener('change', () => validateDuration(educationalCount));
+    moisFin.addEventListener('change', () => validateDuration(educationalCount));
+    anneeFin.addEventListener('change', () => validateDuration(educationalCount));
+}
+
+</script>
