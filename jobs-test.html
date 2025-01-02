@@ -1,0 +1,88 @@
+<?php
+// Paramètres de l'API
+$apiUrl = 'https://i-team.ma/Iteam-dev/api/index.php/recruitment/jobposition';
+$apiKey = '73bfd6c7ecfc9718513bd0682e24134a6f28eb1f';
+
+// Paramètres de la requête
+$params = [
+    'sortfield' => 't.rowid',
+    'sortorder' => 'ASC',
+    'limit' => 100,
+    'DOLAPIKEY' => $apiKey
+];
+
+// Construire l'URL avec les paramètres
+$url = $apiUrl . '?' . http_build_query($params);
+
+// Initialiser cURL
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+// Exécuter la requête
+$response = curl_exec($ch);
+
+// Vérifier les erreurs
+if(curl_errno($ch)){
+    echo 'Erreur cURL : ' . curl_error($ch);
+}
+
+// Fermer la session cURL
+curl_close($ch);
+
+// Décoder la réponse JSON
+$jobs = json_decode($response, true);
+
+// Vérifier si des emplois ont été récupérés
+$hasJobs = !empty($jobs) && is_array($jobs);
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres d'emploi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Offres d'emploi</h1>
+        <div id="jobListings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <?php if ($hasJobs): ?>
+                <?php foreach ($jobs as $job): ?>
+                    <div class="bg-white p-4 rounded shadow job-item" style="display: none;">
+                        <h2 class="text-xl font-semibold"><?php echo htmlspecialchars($job['label']); ?></h2>
+                        <p>Date de création : <?php echo htmlspecialchars($job['date_creation']); ?></p>
+                        <p>Quantité : <?php echo htmlspecialchars($job['qty']); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Aucune offre d'emploi disponible pour le moment.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const jobItems = document.querySelectorAll('.job-item');
+        
+        function showJobs(startIndex, count) {
+            for (let i = startIndex; i < startIndex + count && i < jobItems.length; i++) {
+                jobItems[i].style.display = 'block';
+            }
+        }
+
+        // Afficher les 10 premiers emplois initialement
+        showJobs(0, 10);
+
+        // Ajouter un écouteur d'événements pour le défilement
+        window.addEventListener('scroll', function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+                showJobs(document.querySelectorAll('.job-item[style="display: block;"]').length, 5);
+            }
+        });
+    });
+    </script>
+</body>
+</html>

@@ -20,13 +20,6 @@
             border-radius: 9999px;
             transition: all 0.3s ease;
         }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
     </style>
 </head>
 <body class="bg-gray-100 flex justify-center items-start min-h-screen py-8">
@@ -49,6 +42,7 @@
                 </div>
                 <button id="searchButton" class="bg-green-600 text-white px-4 py-2 rounded ml-2 hover:bg-green-700 transition-colors">Search</button>
             </div>
+            <div id="selectedFilters" class="flex flex-wrap gap-2 mt-4"></div>
         </div>
         
         <div class="flex space-x-6">
@@ -60,7 +54,6 @@
             </div>
             
             <div class="w-2/3">
-                <div id="selectedFilters" class="flex flex-wrap gap-2 mb-4"></div>
                 <h2 class="font-semibold mb-4 text-lg">Job Listings</h2>
                 <div id="jobListings"></div>
             </div>
@@ -183,18 +176,13 @@
                 return matchesSearch && matchesLocation && matchesFilters;
             });
 
-            jobListings.innerHTML = '';
-            filteredJobs.forEach((job, index) => {
-                const jobElement = document.createElement('div');
-                jobElement.className = 'bg-white border p-4 mb-4 rounded-lg shadow-sm hover:shadow-md transition-shadow fade-in';
-                jobElement.style.animationDelay = `${index * 0.1}s`;
-                jobElement.innerHTML = `
+            jobListings.innerHTML = filteredJobs.map(job => `
+                <div class="bg-white border p-4 mb-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                     <h3 class="font-medium text-lg mb-2">${job.title}</h3>
                     <p class="text-gray-600 mb-1">${job.location} - ${job.type}</p>
                     <p class="text-gray-600">Experience: ${job.experience}</p>
-                `;
-                jobListings.appendChild(jobElement);
-            });
+                </div>
+            `).join('');
         }
 
         document.getElementById('searchButton').addEventListener('click', renderJobs);

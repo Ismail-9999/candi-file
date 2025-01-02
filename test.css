@@ -359,3 +359,30 @@ color: #606060;
 .hidden {
     display: none;
 }
+
+
+/* Style the "Back to Top" button */
+#backToTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed position */
+    bottom: 20px; /* 20px from the bottom */
+    right: 20px; /* 20px from the right */
+    z-index: 99; /* Ensure it's above other content */
+    font-size: 16px; /* Adjust icon size */
+    background-color: #19936a; /* Black background */
+    color: white; /* White icon */
+    border: none; /* Remove borders */
+    padding: 0;
+    cursor: pointer; /* Pointer/hand icon */
+    border-radius: 50%; /* Rounded corners */
+    opacity: 0.6 ease; /* Slight transparency */
+    width: 40px;  /* Set a fixed width */
+    height: 40px; /* Set a fixed height */
+  }
+  
+  #backToTopBtn:hover {
+    opacity: 1; /* Fully opaque on hover */
+    display: block; /* Ensure the button becomes visible */
+  }
+  
+  
